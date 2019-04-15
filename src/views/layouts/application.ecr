@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Test using Amber</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/dist/main.bundle.css">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="icon" href="/favicon.png">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+
+<body>
+  <nav class="bg-octoblue-lightest py-2">
+    <ul class="container mx-auto flex justify-between list-reset my-2">
+      <div>
+        <li>
+          <p class="text-white" >Liens Utiles :</a>
+        </li>
+      </div>
+      <div>
+        <%= render(partial: "layouts/_nav.ecr") %>
+      </div>
+    </ul>
+  </nav>
+
+  <div class="container mx-auto">
+    <%- flash.each do |key, value| %>
+    <div class="" role="alert">
+      <%= flash[key] %>
+    </div>
+    <%- end %>
+
+    <div class="main">
+      <%= content %>
+    </div>
+  </div>
+
+  <script src="/dist/main.bundle.js"></script>
+
+  <%- if Amber.settings.auto_reload? -%><script src="/js/client_reload.js"></script><%- end -%>
+</body>
+
+</html>

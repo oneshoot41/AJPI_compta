@@ -1,0 +1,18 @@
+<%- action = (user.id ? "/users/" + user.id.to_s : "/users") %>
+<form action="<%= action %>" method="post">
+  <%= csrf_tag %>
+  <%- if user.id %>
+  <input type="hidden" name="_method" value="patch" />
+  <%- end %>
+
+  <div class="form-group">
+    <%= text_field(name: "name", value: user.name, placeholder: "Nom ou raison sociale", class: "form-control") -%>
+    <select name="user_type_id" class="form-control" id="select">
+    <%- user_types.each do |user_type| %>
+      <option value=<%= user_type.id %>><%= user_type.wording %></option>
+    <%- end %>
+    </select>
+  </div>
+  <%= submit("Valider", class: "btn btn-success btn-sm") -%>
+  <%= link_to("Back", "/users", class: "btn btn-light btn-sm") -%>
+</form>

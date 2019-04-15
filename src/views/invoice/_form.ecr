@@ -1,0 +1,40 @@
+<%- action = (invoice.id ? "/invoices/" + invoice.id.to_s : "/invoices") %>
+<form action="<%= action %>" method="post">
+  <%= csrf_tag %>
+  <%- if invoice.id %>
+  <input type="hidden" name="_method" value="patch" />
+  <%- end %>
+
+  <div class="form-group">
+
+    <%= text_field(name: "name", value: invoice.name, placeholder: "Intitulé de la Facture", class: "") -%>
+
+    <select name="user_id" class="form-control" id="select">
+      <%- users.each do |user| %>
+        <option value="<%= user.id %>"><%= user.name %></option>
+      <%- end %>
+    </select>
+
+    <input type="text" name="amount" placeholder="0.00" value="<%= invoice.amount %>">
+
+    <label for="paid">Payé ?</label>
+    <select name="paid" class="form-control" id="select">
+      <option value="false">Non</option>
+      <option value="true">Oui</option>
+    </select>
+
+    <label for="type">Catégorie de Facture</label>
+    <select name="type" class="form-control" id="select">
+      <option value="C1">C1</option>
+      <option value="C2">C2</option>
+    </select>
+
+    <input type="date" name="date" id="datepicker">
+
+
+
+
+  </div>
+  <%= submit("Valider", class: "btn btn-success btn-sm") -%>
+  <%= link_to("Back", "/invoices", class: "btn btn-light btn-sm") -%>
+</form>

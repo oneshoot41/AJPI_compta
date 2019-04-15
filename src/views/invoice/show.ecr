@@ -1,0 +1,7 @@
+<h1>Show <%= invoice.name %></h1>
+
+<p>
+  <%= link_to("Back", "/invoices", class: "btn btn-light btn-sm") -%>
+  <%= link_to("Edit", "/invoices/#{invoice.id}/edit", class: "btn btn-success btn-sm") -%>
+  <%= link_to("Delete", "/invoices/#{invoice.id}?_csrf=#{csrf_token}", "data-method": "delete", "data-confirm": "Are you sure?", class: "btn btn-danger btn-sm") -%>
+</p>

@@ -1,0 +1,13 @@
+<%- action = (date.id ? "/dates/" + date.id.to_s : "/dates") %>
+<form action="<%= action %>" method="post">
+  <%= csrf_tag %>
+  <%- if date.id %>
+  <input type="hidden" name="_method" value="patch" />
+  <%- end %>
+
+  <div class="form-group">
+    <p>Date: <input type="text" id="datepicker" name="date" value="<%= date.date %>"/></p>
+  </div>
+  <%= submit("Submit", class: "btn btn-success btn-sm") -%>
+  <%= link_to("Back", "/dates", class: "btn btn-light btn-sm") -%>
+</form>
