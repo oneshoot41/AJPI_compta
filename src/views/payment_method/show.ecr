@@ -1,0 +1,7 @@
+<h1>Show <%= payment_method.wording %></h1>
+
+<p>
+  <%= link_to("Back", "/payment_methods", class: "btn btn-light btn-sm") -%>
+  <%= link_to("Edit", "/payment_methods/#{payment_method.id}/edit", class: "btn btn-success btn-sm") -%>
+  <%= link_to("Delete", "/payment_methods/#{payment_method.id}?_csrf=#{csrf_token}", "data-method": "delete", "data-confirm": "Are you sure?", class: "btn btn-danger btn-sm") -%>
+</p>

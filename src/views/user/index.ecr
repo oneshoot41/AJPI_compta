@@ -20,9 +20,9 @@
         <td class="bg-white"><%= customer.name %></td>
         <td>
           <span>
-            <%= link_to("Show", "/users/#{user.id}", class: "btn btn-info btn-sm") -%>
-            <%= link_to("Edit", "/users/#{user.id}/edit", class: "btn btn-success btn-sm") -%>
-            <%= link_to("Delete", "/users/#{user.id}?_csrf=#{csrf_token}", "data-method": "delete", "data-confirm": "Are you sure?", class: "btn btn-danger btn-sm") -%>
+            <%= link_to("Show", "/users/#{customer.id}", class: "btn btn-info btn-sm") -%>
+            <%= link_to("Edit", "/users/#{customer.id}/edit", class: "btn btn-success btn-sm") -%>
+            <%= link_to("Delete", "/users/#{customer.id}?_csrf=#{csrf_token}", "data-method": "delete", "data-confirm": "Are you sure?", class: "btn btn-danger btn-sm") -%>
           </span>
         </td>
       </tr>
@@ -32,9 +32,9 @@
         <td class="bg-black text-white"><%= provider.name %></td>
         <td>
           <span>
-            <%= link_to("Show", "/users/#{user.id}", class: "btn btn-info btn-sm") -%>
-            <%= link_to("Edit", "/users/#{user.id}/edit", class: "btn btn-success btn-sm") -%>
-            <%= link_to("Delete", "/users/#{user.id}?_csrf=#{csrf_token}", "data-method": "delete", "data-confirm": "Are you sure?", class: "btn btn-danger btn-sm") -%>
+            <%= link_to("Show", "/users/#{provider.id}", class: "btn btn-info btn-sm") -%>
+            <%= link_to("Edit", "/users/#{provider.id}/edit", class: "btn btn-success btn-sm") -%>
+            <%= link_to("Delete", "/users/#{provider.id}?_csrf=#{csrf_token}", "data-method": "delete", "data-confirm": "Are you sure?", class: "btn btn-danger btn-sm") -%>
           </span>
         </td>
       </tr>

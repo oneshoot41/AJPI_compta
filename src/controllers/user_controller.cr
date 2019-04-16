@@ -29,10 +29,9 @@ class UserController < ApplicationController
         user_types = UserType.all
         user = User.new user_params.validate!
       if user.save
-        redirect_back(flash: {"success" => "Création effectuée"})
+        redirect_to action: :index, flash: {"success" => "Création effectuée"}
       else
-        flash[:danger] = "Could not create User!"
-        render "new.ecr"
+        redirect_to action: :edit, flash: {"danger" => "Impossible de créer, veuillez réessayer"}
       end
     end
   
@@ -40,16 +39,15 @@ class UserController < ApplicationController
         user_types = UserType.all
         user.set_attributes user_params.validate!
       if user.save
-        redirect_back(flash: {"success" => "Edition effectuée"})
+        redirect_to action: :index, flash: {"success" => "Edition effectuée"}
       else
-        flash[:danger] = "Could not update User!"
-        render "edit.ecr"
+        redirect_to action: :edit, flash: {"danger" => "Impossible d'éditer, veuillez réessayer"}
       end
     end
   
     def destroy
       user.destroy
-      redirect_to controller: :home, action: :index, flash: {"success" => "Suppression effectuée"}
+      redirect_to action: :index, flash: {"success" => "Suppression effectuée"}
     end
 
     private def user_params

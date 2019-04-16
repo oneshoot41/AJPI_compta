@@ -17,40 +17,44 @@ class InvoiceController < ApplicationController
     end
   
     def new
-      users = User.all
+      date = Time.now
+      providers = User.all("WHERE user_type_id = 1")
+      customers = User.all("WHERE user_type_id = 2")
+      payment_methods = PaymentMethod.all
       render "new.ecr"
     end
   
     def edit
-      users = User.all
+      date = Time.now
+      providers = User.all("WHERE user_type_id = 1")
+      customers = User.all("WHERE user_type_id = 2")
+      payment_methods = PaymentMethod.all
       render "edit.ecr"
     end
   
     def create
-        users = User.all
+        invoice.date = Time.parse(params[:date], "%Y-%m-%d", Time::Location::UTC)
         invoice = Invoice.new invoice_params.validate!
       if invoice.save
-        redirect_back(flash: {"success" => "Création effectuée"})
+        redirect_to action: :index, flash: {"success" => "Création effectuée"}
       else
-        flash[:danger] = "Could not create Invoice!"
-        render "new.ecr"
+        redirect_to action: :new, flash: {"danger" => "Could not create Invoice!"}
       end
     end
   
     def update
-        users = User.all
+        invoice.date = Time.parse(params[:date], "%Y-%m-%d", Time::Location::UTC)
         invoice.set_attributes invoice_params.validate!
       if invoice.save
-        redirect_back(flash: {"success" => "Edition effectuée"})
+        redirect_to action: :index, flash: {"success" => "Edition effectuée"}
       else
-        flash[:danger] = "Could not update Invoice!"
-        render "edit.ecr"
+        redirect_to action: :edit, flash: {"danger" => "Could not edit Invoice!"}
       end
     end
   
     def destroy
       invoice.destroy
-      redirect_to controller: :home, action: :index, flash: {"success" => "Suppression effectuée"}
+      redirect_to action: :index, flash: {"success" => "Suppression effectuée"}
     end
 
     private def invoice_params

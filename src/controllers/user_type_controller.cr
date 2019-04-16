@@ -25,20 +25,18 @@ class UserTypeController < ApplicationController
     def create
         user_type = UserType.new user_type_params.validate!
       if user_type.save
-        redirect_back(flash: {"success" => "Création effectuée"})
+        redirect_to action: :index, flash: {"success" => "Création effectuée"}
       else
-        flash[:danger] = "Could not create UserType!"
-        render "new.ecr"
+        redirect_to action: :edit, flash: {"danger" => "Impossible de créer, veuillez réessayer"}
       end
     end
   
     def update
         user_type.set_attributes user_type_params.validate!
       if user_type.save
-        redirect_back(flash: {"success" => "Edition effectuée"})
+        redirect_to action: :index, flash: {"success" => "Edition effectuée"}
       else
-        flash[:danger] = "Could not update UserType!"
-        render "edit.ecr"
+        redirect_to action: :edit, flash: {"danger" => "Impossible d'éditer, veuillez réessayer"}
       end
     end
   

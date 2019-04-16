@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-sm-11">
+    <h2>Types de paiements</h2>
+  </div>
+  <div class="col-sm-1">
+    <a class="btn btn-success btn-sm" href="/payment_methods/new">Nouveau</a>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+    <tbody>
+    <%- payment_methods.each do |payment_method| %>
+      <tr>
+        <td><%= payment_method.wording %></td>
+        <td>
+          <span>
+            <%= link_to("Show", "/payment_methods/#{payment_method.id}", class: "btn btn-info btn-sm") -%>
+            <%= link_to("Edit", "/payment_methods/#{payment_method.id}/edit", class: "btn btn-success btn-sm") -%>
+            <%= link_to("Delete", "/payment_methods/#{payment_method.id}?_csrf=#{csrf_token}", "data-method": "delete", "data-confirm": "Are you sure?", class: "btn btn-danger btn-sm") -%>
+          </span>
+        </td>
+      </tr>
+    <%- end %>
+    </tbody>
+  </table>
+</div>

@@ -11,3 +11,13 @@
 <li class="inline <%= active %>">
   <a href="/" class="py-2 px-6 border rounded ml-10 border-green hover:border-white bg-white text-green hover:bg-green hover:text-white no-underline transition">Home</a>
 </li>
+
+<%- active = context.request.path == "/" ? "active" : "" %>
+<li class="inline <%= active %>">
+  <a href="/payment_methods" class="py-2 px-6 border rounded ml-10 border-green hover:border-white bg-white text-green hover:bg-green hover:text-white no-underline transition">Types de Paiements</a>
+</li>
+
+<%- active = context.request.path == "/" ? "active" : "" %>
+<li class="inline <%= active %>">
+  <a href="/user_types" class="py-2 px-6 border rounded ml-10 border-green hover:border-white bg-white text-green hover:bg-green hover:text-white no-underline transition">Types de personnes</a>
+</li>

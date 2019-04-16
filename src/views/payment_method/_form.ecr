@@ -1,0 +1,13 @@
+<%- action = (payment_method.id ? "/payment_methods/" + payment_method.id.to_s : "/payment_methods") %>
+<form action="<%= action %>" method="post">
+  <%= csrf_tag %>
+  <%- if payment_method.id %>
+  <input type="hidden" name="_method" value="patch" />
+  <%- end %>
+
+  <div class="form-group">
+    <%= text_field(name: "wording", value: payment_method.wording, placeholder: "Nom de la méthode de paiement", class: "form-control") -%>
+  </div>
+  <%= submit("Valider", class: "btn btn-success btn-sm") -%>
+  <%= link_to("Back", "/payment_methods", class: "btn btn-light btn-sm") -%>
+</form>

@@ -9,27 +9,86 @@
 
     <%= text_field(name: "name", value: invoice.name, placeholder: "Intitulé de la Facture", class: "") -%>
 
-    <select name="user_id" class="form-control" id="select">
-      <%- users.each do |user| %>
-        <option value="<%= user.id %>"><%= user.name %></option>
+    <label for="user">Client ou Fournisseur ?</label>
+    <select id="select_user" name="user" class="form-control">
+      <option value="customer">Client</option>
+      <%- if invoice.user.user_type_id == 1 %>
+      <option selected value="provider">Fournisseur</option>
+      <%- else %>
+      <option value="provider">Fournisseur</option>
       <%- end %>
     </select>
+
+    <div id="customers">
+      <label for="user_id">Quel Client ?</label>
+      <select name="user_id" class="form-control" id="select">
+        <option disabled selected value>Choisir</option>
+        <%- customers.each do |customer| %>
+        <%- if invoice.user_id == customer.id %>
+        <option selected value="<%= customer.id %>"><%= customer.name %></option>
+        <%- else %>
+        <option value="<%= customer.id %>"><%= customer.name %></option>
+        <%- end %>
+        <%- end %>
+      </select>
+    </div>
+
+    <div id="providers">
+      <label for="user_id">Quel Fournisseur ?</label>
+      <select name="user_id" class="form-control" id="select">
+        <option disabled selected value>Choisir</option>
+        <%- providers.each do |provider| %>
+        <%- if invoice.user_id == provider.id %>
+        <option selected value="<%= provider.id %>"><%= provider.name %></option>
+        <%- else %>
+        <option value="<%= provider.id %>"><%= provider.name %></option>
+        <%- end %>
+        <%- end %>
+      </select>
+    </div>
 
     <input type="text" name="amount" placeholder="0.00" value="<%= invoice.amount %>">
 
     <label for="paid">Payé ?</label>
-    <select name="paid" class="form-control" id="select">
+    <select id="paid-select" name="paid" class="form-control">
       <option value="false">Non</option>
+      <%- if invoice.paid == true %>
+      <option selected value="true">Oui</option>
+      <%- else %>
       <option value="true">Oui</option>
+      <%- end %>
     </select>
+
+    <div id="payment_method">
+      <label for="payment_method_id">Moyen de paiement</label>
+      <select name="payment_method_id" class="form-control" id="select">
+        <option disabled selected value>Non Défini</option>
+        <%- payment_methods.each do |payment_method| %>
+        <%- if invoice.payment_method_id == payment_method.id %>
+        <option selected value="<%= payment_method.id %>"><%= payment_method.wording %></option>
+        <%- else %>
+        <option value="<%= payment_method.id %>"><%= payment_method.wording %></option>
+        <%- end %>
+        <%- end %>
+      </select>
+    </div>
+
 
     <label for="type">Catégorie de Facture</label>
     <select name="type" class="form-control" id="select">
       <option value="C1">C1</option>
+      <%- if invoice.type == "C2" %>
+      <option selected value="C2">C2</option>
+      <%- else %>
       <option value="C2">C2</option>
+      <%- end %>
     </select>
 
-    <input type="date" name="date" id="datepicker">
+    <%- if invoice.date %>
+    <input type="date" name="date" value="<%= invoice.date!.to_s("%Y-%m-%d") %>">
+    <%- else %>
+    <input type="date" name="date" value="<%= date.to_s("%Y-%m-%d") %>">
+    <%- end %>
 
 
 

@@ -28,6 +28,7 @@ Amber::Server.configure do
   end
 
   routes :web do
+    resources "/payment_methods", PaymentMethodController
     resources "/invoices", InvoiceController
     resources "/user_types", UserTypeController
     resources "/users", UserController
