@@ -33,8 +33,8 @@ class InvoiceController < ApplicationController
     end
   
     def create
-        invoice.date = Time.parse(params[:date], "%Y-%m-%d", Time::Location::UTC)
         invoice = Invoice.new invoice_params.validate!
+        invoice.date = Time.parse(params[:date], "%Y-%m-%d", Time::Location::UTC)
       if invoice.save
         redirect_to action: :index, flash: {"success" => "Création effectuée"}
       else
@@ -43,8 +43,8 @@ class InvoiceController < ApplicationController
     end
   
     def update
-        invoice.date = Time.parse(params[:date], "%Y-%m-%d", Time::Location::UTC)
         invoice.set_attributes invoice_params.validate!
+        invoice.date = Time.parse(params[:date], "%Y-%m-%d", Time::Location::UTC)
       if invoice.save
         redirect_to action: :index, flash: {"success" => "Edition effectuée"}
       else

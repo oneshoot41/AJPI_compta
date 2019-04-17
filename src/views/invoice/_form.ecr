@@ -21,8 +21,8 @@
 
     <div id="customers">
       <label for="user_id">Quel Client ?</label>
-      <select name="user_id" class="form-control" id="select">
-        <option disabled selected value>Choisir</option>
+      <select name="user_id" class="user_selects" id="select_customer">
+        <option selected>Choisir</option>
         <%- customers.each do |customer| %>
         <%- if invoice.user_id == customer.id %>
         <option selected value="<%= customer.id %>"><%= customer.name %></option>
@@ -35,8 +35,8 @@
 
     <div id="providers">
       <label for="user_id">Quel Fournisseur ?</label>
-      <select name="user_id" class="form-control" id="select">
-        <option disabled selected value>Choisir</option>
+      <select name="user_id" class="user_selects" id="select_provider">
+        <option selected>Choisir</option>
         <%- providers.each do |provider| %>
         <%- if invoice.user_id == provider.id %>
         <option selected value="<%= provider.id %>"><%= provider.name %></option>
