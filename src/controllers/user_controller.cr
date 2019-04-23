@@ -6,8 +6,9 @@ class UserController < ApplicationController
     end
 
     def index
-      providers = User.all("WHERE user_type_id = 1")
-      customers = User.all("WHERE user_type_id = 2")
+      users = User.all
+      providers = User.all("WHERE user_type_id = 2")
+      customers = User.all("WHERE user_type_id = 1")
       render "index.ecr"
     end
   

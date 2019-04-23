@@ -29,6 +29,9 @@ Amber::Server.configure do
 
   routes :web do
     resources "/payment_methods", PaymentMethodController
+    get "/years", InvoiceController, :year
+    get "/years/:year", InvoiceController, :show_year
+    get "/months/:year/:month", InvoiceController, :show_month
     resources "/invoices", InvoiceController
     resources "/user_types", UserTypeController
     resources "/users", UserController

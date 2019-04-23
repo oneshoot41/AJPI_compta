@@ -13,3 +13,7 @@ html {
 .transition {
   transition: .5s;
 }
+
+.pointer:hover {
+ cursor: pointer;
+}

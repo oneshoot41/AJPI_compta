@@ -1,32 +1,16 @@
-<div class="row">
-  <div class="col-sm-11">
-    <h2>Factures</h2>
-  </div>
-  <div class="col-sm-1">
-    <a class="btn btn-success btn-sm" href="/invoices/new">New</a>
-  </div>
-</div>
-
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Actions</th>
-      </tr>
-    <tbody>
+<div class="mx-auto">
+  <h1 class="text-center my-4">Factures Non payées</h1>
+  <ul class="rounded border border-grey bg-grey-lighter list-reset p-6 my-2">
     <%- invoices.each do |invoice| %>
-      <tr>
-        <td><%= invoice.name %></td>
-        <td>
-          <span>
-            <%= link_to("Show", "/invoices/#{invoice.id}", class: "btn btn-info btn-sm") -%>
-            <%= link_to("Edit", "/invoices/#{invoice.id}/edit", class: "btn btn-success btn-sm") -%>
-            <%= link_to("Delete", "/invoices/#{invoice.id}?_csrf=#{csrf_token}", "data-method": "delete", "data-confirm": "Are you sure?", class: "btn btn-danger btn-sm") -%>
-          </span>
-        </td>
-      </tr>
+    <div class="inline-flex w-full justify-between border-black bg-white my-2 p-2">
+    <li><%= invoice.name %></li>
+    <div>
+      <%= link_to("Voir", "/invoices/#{invoice.id}", class: "no-underline shadow bg-green hover:bg-green-light focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded") -%>
+      <%= link_to("Modifier", "/invoices/#{invoice.id}/edit", class: "no-underline shadow bg-octoblue-dark hover:bg-octoblue-light focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded") -%>
+      <%= link_to("Supprimer", "/invoices/#{invoice.id}?_csrf=#{csrf_token}", "data-method": "delete", "data-confirm": "Are you sure?", class: "no-underline shadow bg-red hover:bg-red-light focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded") -%>
+    </div>
+  </div>
     <%- end %>
-    </tbody>
-  </table>
+  </ul>
+
 </div>

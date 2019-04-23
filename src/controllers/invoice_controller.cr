@@ -1,21 +1,36 @@
 class InvoiceController < ApplicationController
     getter invoice = Invoice.new
+    getter year = Invoice.new
     
     before_action do
       only [:show, :edit, :update, :destroy] { set_invoice }
+      only [:show_year] { set_year }
     end
 
     def index
-      invoices = Invoice.all
-      # providers = Invoice.all("WHERE user_type_id = 1")
-      # customers = Invoice.all("WHERE user_type_id = 2")
+      invoices = Invoice.all("WHERE paid = false")
       render "index.ecr"
     end
   
     def show
       render "show.ecr"
     end
-  
+
+    def year
+      years = Invoice.all("GROUP BY YEAR(date)")
+      render "year.ecr"
+    end
+
+    def show_year
+      months = Invoice.all("WHERE YEAR(date) = ? GROUP BY MONTH(date)", params[:year])
+      render "show_year.ecr"
+    end
+
+    def show_month
+      invoices = Invoice.all("WHERE YEAR(date) = ? AND MONTH(date) = ? ORDER BY date DESC", [params[:year],params[:month]])
+      render "show_month.ecr"
+    end
+    
     def new
       date = Time.now
       providers = User.all("WHERE user_type_id = 1")
@@ -46,7 +61,7 @@ class InvoiceController < ApplicationController
         invoice.set_attributes invoice_params.validate!
         invoice.date = Time.parse(params[:date], "%Y-%m-%d", Time::Location::UTC)
       if invoice.save
-        redirect_to action: :index, flash: {"success" => "Edition effectuée"}
+        redirect_to location: "/months/" + invoice.date!.to_s("%Y") + "/" + invoice.date!.to_s("%m"), flash: {"success" => "Edition effectuée"}
       else
         redirect_to action: :edit, flash: {"danger" => "Could not edit Invoice!"}
       end
@@ -54,7 +69,7 @@ class InvoiceController < ApplicationController
   
     def destroy
       invoice.destroy
-      redirect_to action: :index, flash: {"success" => "Suppression effectuée"}
+      redirect_to controller: :home, action: :index, flash: {"success" => "Suppression effectuée"}
     end
 
     private def invoice_params
@@ -72,5 +87,9 @@ class InvoiceController < ApplicationController
 
     private def set_invoice
         @invoice = Invoice.find! params[:id]
+    end
+
+    private def set_year
+        @year = Invoice.first!("WHERE YEAR(date) = ?", params[:year])
     end
 end

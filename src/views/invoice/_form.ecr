@@ -1,27 +1,107 @@
 <%- action = (invoice.id ? "/invoices/" + invoice.id.to_s : "/invoices") %>
-<form action="<%= action %>" method="post">
+<form action="<%= action %>" method="post" class="w-full max-w-md border rounded border-grey bg-white p-6 mx-auto">
   <%= csrf_tag %>
   <%- if invoice.id %>
   <input type="hidden" name="_method" value="patch" />
   <%- end %>
 
-  <div class="form-group">
 
-    <%= text_field(name: "name", value: invoice.name, placeholder: "Intitulé de la Facture", class: "") -%>
+  <div class="flex flex-wrap">
 
-    <label for="user">Client ou Fournisseur ?</label>
-    <select id="select_user" name="user" class="form-control">
-      <option value="customer">Client</option>
-      <%- if invoice.user.user_type_id == 1 %>
-      <option selected value="provider">Fournisseur</option>
-      <%- else %>
-      <option value="provider">Fournisseur</option>
-      <%- end %>
-    </select>
+    <!-- INVOICE NAME -->
+    <div class="w-1/2 pr-3">
+      <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="name">Nom de la
+        facture</label>
+      <%= text_field(name: "name", value: invoice.name, placeholder: "Achat de souris TERRA", class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white") -%>
+    </div>
 
-    <div id="customers">
-      <label for="user_id">Quel Client ?</label>
-      <select name="user_id" class="user_selects" id="select_customer">
+    <!-- AMOUNT -->
+    <div class="w-1/2 pl-3">
+      <label for="amount" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">Montant
+        :</label>
+      <input
+        class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+        type="text" name="amount" placeholder="0.00" value="<%= invoice.amount %>">
+    </div>
+
+  </div>
+
+  <!-- TVA SELECT -->
+  <div class="w-full my-2">
+    <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="tva">Taux de TVA
+      :</label>
+    <div class="relative">
+      <select name="tva"
+        class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey">
+        <option disabled selected>Choisir</option>
+
+        <%- if invoice.tva == 20 %>
+        <option selected value="20">20%</option>
+        <%- else %>
+        <option value="20">20%</option>
+        <%- end %>
+
+        <%- if invoice.tva == 10 %>
+        <option selected value="10">10%</option>
+        <%- else %>
+        <option value="10">10%</option>
+        <%- end %>
+
+        <%- if invoice.tva == 5.5 %>
+        <option selected value="5.5">5.5%</option>
+        <%- else %>
+        <option value="5.5">5.5%</option>
+        <%- end %>
+
+      </select>
+    </div>
+  </div>
+
+  <!-- CUSTOMER OR PROVIDER SELECT -->
+  <div class="w-full my-2">
+    <label for="user" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">Client ou
+      Fournisseur ?</label>
+    <div class="relative">
+      <select id="select_user" name="user"
+        class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey">
+        <option value="customer">Client</option>
+        <%- if invoice.user.user_type.wording == "provider" %>
+        <option selected value="provider">Fournisseur</option>
+        <%- else %>
+        <option value="provider">Fournisseur</option>
+        <%- end %>
+      </select>
+    </div>
+  </div>
+
+  <!-- INVOICE TYPE SELECT -->
+  <div id="type" class="w-full my-2">
+    <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="type">Catégorie de
+      Facture</label>
+    <div class="relative">
+      <select name="type"
+        class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey"
+        id="select_type">
+        <option selected value="">Choisir</option>
+        <option value="C1">C1</option>
+        <%- if invoice.type == "C2" %>
+        <option selected value="C2">C2</option>
+        <%- else %>
+        <option value="C2">C2</option>
+        <%- end %>
+      </select>
+    </div>
+  </div>
+
+
+  <!-- CUSTOMER SELECT -->
+  <div class="w-full my-2" id="customers">
+    <label for="user_id" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">Quel Client
+      ?</label>
+    <div class="relative">
+      <select name="user_id"
+        class="user_selects block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey"
+        id="select_customer">
         <option selected>Choisir</option>
         <%- customers.each do |customer| %>
         <%- if invoice.user_id == customer.id %>
@@ -32,10 +112,17 @@
         <%- end %>
       </select>
     </div>
+  </div>
 
-    <div id="providers">
-      <label for="user_id">Quel Fournisseur ?</label>
-      <select name="user_id" class="user_selects" id="select_provider">
+
+  <!-- PROVIDER SELECT -->
+  <div class="w-full my-2" id="providers">
+    <label for="user_id" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">Quel
+      Fournisseur ?</label>
+    <div class="relative">
+      <select name="user_id"
+        class="user_selects block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey"
+        id="select_provider">
         <option selected>Choisir</option>
         <%- providers.each do |provider| %>
         <%- if invoice.user_id == provider.id %>
@@ -46,25 +133,36 @@
         <%- end %>
       </select>
     </div>
+  </div>
 
-    <input type="text" name="amount" placeholder="0.00" value="<%= invoice.amount %>">
+  <!-- PAID SELECT -->
+  <div class="w-full my-2">
+    <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="paid">Payé ?</label>
+    <div class="relative">
+      <select id="paid-select" name="paid"
+        class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey">
+        <option value="false">Non</option>
+        <%- if invoice.paid == true %>
+        <option selected value="true">Oui</option>
+        <%- else %>
+        <option value="true">Oui</option>
+        <%- end %>
+      </select>
+    </div>
+  </div>
 
-    <label for="paid">Payé ?</label>
-    <select id="paid-select" name="paid" class="form-control">
-      <option value="false">Non</option>
-      <%- if invoice.paid == true %>
-      <option selected value="true">Oui</option>
-      <%- else %>
-      <option value="true">Oui</option>
-      <%- end %>
-    </select>
 
-    <div id="payment_method">
-      <label for="payment_method_id">Moyen de paiement</label>
-      <select name="payment_method_id" class="form-control" id="select">
+  <!-- PAYMENT METHOD SELECT -->
+  <div class="w-full my-2" id="payment_method">
+    <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="payment_method_id">Moyen
+      de paiement</label>
+    <div class="relative">
+      <select name="payment_method_id"
+        class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey"
+        id="select">
         <option disabled selected value>Non Défini</option>
         <%- payment_methods.each do |payment_method| %>
-        <%- if invoice.payment_method_id == payment_method.id %>
+        <%- if invoice.payment_method.wording == payment_method.wording %>
         <option selected value="<%= payment_method.id %>"><%= payment_method.wording %></option>
         <%- else %>
         <option value="<%= payment_method.id %>"><%= payment_method.wording %></option>
@@ -72,28 +170,27 @@
         <%- end %>
       </select>
     </div>
-
-
-    <label for="type">Catégorie de Facture</label>
-    <select name="type" class="form-control" id="select">
-      <option value="C1">C1</option>
-      <%- if invoice.type == "C2" %>
-      <option selected value="C2">C2</option>
-      <%- else %>
-      <option value="C2">C2</option>
-      <%- end %>
-    </select>
-
-    <%- if invoice.date %>
-    <input type="date" name="date" value="<%= invoice.date!.to_s("%Y-%m-%d") %>">
-    <%- else %>
-    <input type="date" name="date" value="<%= date.to_s("%Y-%m-%d") %>">
-    <%- end %>
-
-
-
-
   </div>
-  <%= submit("Valider", class: "btn btn-success btn-sm") -%>
-  <%= link_to("Back", "/invoices", class: "btn btn-light btn-sm") -%>
+
+  <!-- DATE -->
+  <div id="type" class="w-full my-2">
+    <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="type">Date de la
+      Facture</label>
+    <div class="relative">
+      <%- if invoice.date %>
+      <input
+        class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+        type="date" name="date" value="<%= invoice.date!.to_s("%Y-%m-%d") %>">
+      <%- else %>
+      <input
+        class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+        type="date" name="date" value="<%= date.to_s("%Y-%m-%d") %>">
+      <%- end %>
+    </div>
+
+    <div class="flex justify-between">
+      <%= link_to("Back", "/invoices", class: "no-underline shadow bg-octoblue hover:bg-octoblue-light focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded") -%>
+      <%= submit("Valider", class: "shadow bg-green focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded pointer") -%>
+    </div>
+
 </form>

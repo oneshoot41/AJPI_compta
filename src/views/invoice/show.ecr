@@ -1,7 +1,41 @@
-<h1>Show <%= invoice.name %></h1>
+<div class="mx-auto">
 
-<p>
-  <%= link_to("Back", "/invoices", class: "btn btn-light btn-sm") -%>
-  <%= link_to("Edit", "/invoices/#{invoice.id}/edit", class: "btn btn-success btn-sm") -%>
-  <%= link_to("Delete", "/invoices/#{invoice.id}?_csrf=#{csrf_token}", "data-method": "delete", "data-confirm": "Are you sure?", class: "btn btn-danger btn-sm") -%>
-</p>
+  <ul class="rounded border border-grey bg-grey-lighter list-reset p-6 my-6">
+    <h1 class="text-center pb-4"><%= invoice.name %></h1>
+
+    <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold">Facture au nom de :</label>
+    <li class="border rounded border-black bg-white my-4 p-2"><%= invoice.user.name %></li>
+
+    <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold">Montant HT de la Facture</label>
+    <li class="border rounded border-black bg-white my-4 p-2"><%= invoice.amount %> € HT</li>
+
+    <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold">Taux de tva de la facture</label>
+    <li class="border rounded border-black bg-white my-4 p-2"><%= invoice.tva%> % TVA </li>
+
+    <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold">Montant TTC de la facture</label>
+    <li class="border rounded border-black bg-white my-4 p-2">
+      <%= invoice.amount! + invoice.amount!*(invoice.tva!/100) %> € TTC </li>
+
+    <%- if invoice.user.user_type.wording == "Fournisseur" %>
+    <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold">Catégorie de frais</label>
+    <li class="border rounded border-black bg-white my-4 p-2"><%= invoice.type %></li>
+    <%- end %>
+
+    <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold">Date de la Facture</label>
+    <li class="border rounded border-black bg-white my-4 p-2">Enregistrée pour le <%= invoice.date!.to_s("%d/%m/%Y") %>
+    </li>
+
+    <%- if invoice.paid == true %>
+    <li class="border rounded border-black bg-green text-white my-4 p-2">Facture payée</li>
+    <%- else %>
+    <li class="border rounded border-black bg-red text-white my-4 p-2">Facture non payée</li>
+    <%- end %>
+
+    <div class="flex">
+      <%= link_to("Retour", "/months/#{invoice.date!.to_s("%Y")}/#{invoice.date!.to_s("%m")}", class: "mr-auto no-underline shadow bg-octoblue hover:bg-octoblue-light focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded") -%>
+      <%= link_to("Modifier", "/invoices/#{invoice.id}/edit", class: "mx-auto no-underline shadow bg-orange-dark hover:bg-orange focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded") -%>
+      <%= link_to("Supprimer", "/invoices/#{invoice.id}?_csrf=#{csrf_token}", "data-method": "delete", "data-confirm": "Are you sure?", class: "ml-auto no-underline shadow bg-red hover:bg-red-light focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded") -%>
+    </div>
+  </ul>
+
+</div>
