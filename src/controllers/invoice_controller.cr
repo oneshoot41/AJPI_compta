@@ -30,6 +30,11 @@ class InvoiceController < ApplicationController
       invoices = Invoice.all("WHERE YEAR(date) = ? AND MONTH(date) = ? ORDER BY date DESC", [params[:year],params[:month]])
       render "show_month.ecr"
     end
+
+    def current_month
+      invoices = Invoice.all("WHERE YEAR(date) = YEAR(now()) AND MONTH(date) = MONTH(now())")
+      render "show_month.ecr"
+    end
     
     def new
       date = Time.now
@@ -51,7 +56,7 @@ class InvoiceController < ApplicationController
         invoice = Invoice.new invoice_params.validate!
         invoice.date = Time.parse(params[:date], "%Y-%m-%d", Time::Location::UTC)
       if invoice.save
-        redirect_to action: :index, flash: {"success" => "Création effectuée"}
+        redirect_to location: "/months/" + invoice.date!.to_s("%Y") + "/" + invoice.date!.to_s("%m"), flash: {"success" => "Création effectuée"}
       else
         redirect_to action: :new, flash: {"danger" => "Could not create Invoice!"}
       end

@@ -46,7 +46,11 @@ View the full documentation at https://tailwindcss.com.
 let colors = {
   'transparent': 'transparent',
 
-  'black': '#22292f',
+  'black-dark': '#1b1b1b',
+  'black': '#424242',
+  'black-light': '#6d6d6d',
+  'black-lighter': '#8e8e8e',
+
   'grey-darkest': '#3d4852',
   'grey-darker': '#606f7b',
   'grey-dark': '#8795a1',
@@ -135,6 +139,8 @@ let colors = {
   'octoblue-light': '#44a8f4',
   'octoblue-lighter': '#51abf0',
   'octoblue-lightest': '#59b0f2',
+
+
 }
 
 module.exports = {

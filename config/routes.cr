@@ -29,6 +29,7 @@ Amber::Server.configure do
 
   routes :web do
     resources "/payment_methods", PaymentMethodController
+    get "/current_month", InvoiceController, :current_month
     get "/years", InvoiceController, :year
     get "/years/:year", InvoiceController, :show_year
     get "/months/:year/:month", InvoiceController, :show_month

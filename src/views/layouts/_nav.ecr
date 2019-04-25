@@ -1,23 +1,23 @@
-<%- active = context.request.path == "/invoices" ? "active" : "" %>
-<li class="inline <%= active %>">
-  <a href="/invoices" class="py-2 px-6 border rounded ml-10 border-green hover:border-white bg-white text-green hover:bg-green hover:text-white no-underline transition">Factures non payées</a>
-</li>
-<%- active = context.request.path == "/" ? "active" : "" %>
-<li class="inline <%= active %>">
-  <a href="/" class="py-2 px-6 border rounded ml-10 border-green hover:border-white bg-white text-green hover:bg-green hover:text-white no-underline transition">Home</a>
+<%- active = context.request.path == "/" ? "no-underline p-2 italic uppercase font-bold text-yellow hover:text-white text-xl transition" : "no-underline p-2 italic uppercase font-bold text-white hover:text-yellow text-xl transition" %>
+<li class="inline py-2">
+  <a href="/" class="<%= active %>">Accueil</a>
 </li>
 
-<%- active = context.request.path == "/" ? "active" : "" %>
-<li class="inline <%= active %>">
-  <a href="/" class="py-2 px-6 border rounded ml-10 border-green hover:border-white bg-white text-green hover:bg-green hover:text-white no-underline transition">Home</a>
+<%- active = context.request.path == "/invoices" ? "py-2 px-6 rounded ml-10 bg-white text-black font-bold hover:bg-black-light hover:text-white no-underline transition" : "py-2 px-6 rounded ml-10 bg-black-light text-white font-bold hover:bg-white hover:text-black no-underline transition" %>
+<li class="inline py-2">
+  <a href="/invoices" class="<%= active %>">Factures non payées</a>
+</li>
+<%- active = context.request.path == "/current_month" ? "py-2 px-6 rounded ml-10 bg-white text-black font-bold hover:bg-black-light hover:text-white no-underline transition" : "py-2 px-6 rounded ml-10 bg-black-light text-white font-bold hover:bg-white hover:text-black no-underline transition" %>
+<li class="inline py-2">
+  <a href="/current_month" class="<%= active %>">Mois en cours</a>
 </li>
 
-<%- active = context.request.path == "/" ? "active" : "" %>
-<li class="inline <%= active %>">
-  <a href="/payment_methods" class="py-2 px-6 border rounded ml-10 border-green hover:border-white bg-white text-green hover:bg-green hover:text-white no-underline transition">Types de Paiements</a>
+<%- active = context.request.path == "/payment_methods" ? "py-2 px-6 rounded ml-10 bg-white text-black font-bold hover:bg-black-light hover:text-white no-underline transition" : "py-2 px-6 rounded ml-10 bg-black-light text-white font-bold hover:bg-white hover:text-black no-underline transition" %>
+<li class="inline py-2">
+  <a href="/payment_methods" class="<%= active %>">Types de Paiements</a>
 </li>
 
-<%- active = context.request.path == "/" ? "active" : "" %>
-<li class="inline <%= active %>">
-  <a href="/user_types" class="py-2 px-6 border rounded ml-10 border-green hover:border-white bg-white text-green hover:bg-green hover:text-white no-underline transition">Types de personnes</a>
+<%- active = context.request.path == "/user_types" ? "py-2 px-6 rounded ml-10 bg-white text-black font-bold hover:bg-black-light hover:text-white no-underline transition" : "py-2 px-6 rounded ml-10 bg-black-light text-white font-bold hover:bg-white hover:text-black no-underline transition" %>
+<li class="inline py-2">
+  <a href="/user_types" class="<%= active %>">Types de personnes</a>
 </li>
