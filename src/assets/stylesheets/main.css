@@ -14,3 +14,7 @@ html {
 .pointer:hover {
  cursor: pointer;
 }
+
+.script {
+  font-family: 'Kaushan Script', cursive;
+}

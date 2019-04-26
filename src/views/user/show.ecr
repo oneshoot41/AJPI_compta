@@ -1,5 +1,21 @@
-<h1>Show <%= user.name %></h1>
-<p>
-  <%= link_to("Back", "/users", class: "btn btn-light btn-sm") -%>
-  <%= link_to("Delete", "/users/#{user.id}?_csrf=#{csrf_token}", "data-method": "delete", "data-confirm": "Are you sure?", class: "btn btn-danger btn-sm") -%>
-</p>
+<div class="mx-auto">
+  <h1 class="text-center script my-4 text-2xl text-turquoise font-light4">Factures au nom de <%= user.name %></h1>
+  <ul class="rounded border border-grey bg-grey-lighter list-reset p-6 my-2">
+    <%- invoices.each do |invoice| %>
+    <div class="inline-flex w-full justify-between border-black bg-white my-2 p-2">
+      <li><%= invoice.name %></li>
+      <div>
+        <%= link_to("Voir", "/invoices/#{invoice.id}", class: "no-underline shadow bg-green hover:bg-green-light focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded") -%>
+        <%= link_to("Modifier", "/invoices/#{invoice.id}/edit", class: "no-underline shadow bg-octoblue-dark hover:bg-octoblue-light focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded") -%>
+        <%= link_to("Supprimer", "/invoices/#{invoice.id}?_csrf=#{csrf_token}", "data-method": "delete", "data-confirm": "Are you sure?", class: "no-underline shadow bg-red hover:bg-red-light focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded") -%>
+      </div>
+    </div>
+    <%- end %>
+  </ul>
+  <div class="flex">
+    <%= link_to("Retour", "/users", class: "mr-auto no-underline shadow bg-octoblue hover:bg-octoblue-light focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded") -%>
+    <%= link_to("Modifier", "/users/#{user.id}/edit", class: "mx-auto no-underline shadow bg-orange-dark hover:bg-orange focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded") -%>
+    <%= link_to("Supprimer", "/users/#{user.id}?_csrf=#{csrf_token}", "data-method": "delete", "data-confirm": "Are you sure?", class: "ml-auto no-underline shadow bg-red hover:bg-red-light focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded") -%>
+  </div>
+
+</div>

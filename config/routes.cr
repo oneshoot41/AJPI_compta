@@ -28,6 +28,7 @@ Amber::Server.configure do
   end
 
   routes :web do
+    get "/invoice_category/json", InvoiceController, :category_filter
     resources "/payment_methods", PaymentMethodController
     get "/current_month", InvoiceController, :current_month
     get "/years", InvoiceController, :year

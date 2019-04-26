@@ -1,7 +1,8 @@
 <div class="mt-6 mb-24 text-center">
-    <h2 class="py-4">Années</h2>
-    <a class="py-2 px-6 border rounded border-green hover:border-white bg-white text-green hover:bg-green hover:text-white no-underline transition" href="/invoices/new">Nouvelle facture</a>
+    <h2 class="text-turquoise script font-light text-5xl my-10">Années</h2>
+    <a class="mx-auto no-underline shadow bg-octoblue hover:bg-octoblue-light focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" href="/invoices/new">Nouvelle facture</a>
 </div>
+
 <%- years.each do |year| %>
-    <%= link_to("#{year.date!.to_s("%Y")}", "/years/#{year.date!.to_s("%Y")}", class: "bg-white w-1/4 rounded text-xl p-10 mt-32 no-underline text-black hover:text-yellow-dark transition hover:bg-white-dark") -%>
+    <%= link_to("#{year.date!.to_s("%Y")}", "/years/#{year.date!.to_s("%Y")}", class: "text-center shadow-lg no-underline p-2 italic script block text-white hover:text-yellow rounded hover:bg-grey text-3xl transition my-3") -%>
 <%- end %>

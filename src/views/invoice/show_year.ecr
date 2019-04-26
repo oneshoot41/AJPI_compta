@@ -1,58 +1,34 @@
 <div class="my-12 text-center">
-  <%= link_to("Retour", "/years", class: "py-2 px-6 border rounded border-green hover:border-white bg-white text-green hover:bg-green hover:text-white no-underline transition") -%>
+  <%= link_to("Retour", "/years", class: "mx-auto no-underline shadow bg-octoblue hover:bg-octoblue-light focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded") -%>
 </div>
-
-<div class="inline-flex">
+<h1 class="text-center script my-4 text-2xl text-turquoise font-light"><%= params[:year] %></h1>
+<div class="shadow-lg text-center text-3xl">
 
 <%- months.each do |month| %>
   <%- if month.date!.to_s("%m") == "01" %>
-    <p class="bg-white mx-6 rounded border border-black p-4">
-      <%= link_to("Janvier", "/months/#{month.date!.to_s("%Y")}/#{month.date!.to_s("%m")}", class: "text-xl bg-white mt-10 text-center no-underline text-black hover:text-yellow-dark transition hover:bg-white-dark") -%>
-    </p>
+      <%= link_to("Janvier", "/months/#{month.date!.to_s("%Y")}/#{month.date!.to_s("%m")}", class: "text-center shadow-lg no-underline p-2 italic script block text-white hover:text-yellow text-3xl rounded transition my-3 hover:bg-grey") -%>
   <%- elsif month.date!.to_s("%m") == "02" %>
-    <p class="bg-white mx-6 rounded border border-black p-4">
-      <%= link_to("Février", "/months/#{month.date!.to_s("%Y")}/#{month.date!.to_s("%m")}", class: "text-xl bg-white mt-10 text-center no-underline text-black hover:text-yellow-dark transition hover:bg-white-dark") -%>
-    </p>
+      <%= link_to("Février", "/months/#{month.date!.to_s("%Y")}/#{month.date!.to_s("%m")}", class: "text-center shadow-lg no-underline p-2 italic script block text-white hover:text-yellow text-3xl rounded transition my-3 hover:bg-grey") -%>
   <%- elsif month.date!.to_s("%m") == "03" %>
-    <p class="bg-white mx-6 rounded border border-black p-4">
-      <%= link_to("Mars", "/months/#{month.date!.to_s("%Y")}/#{month.date!.to_s("%m")}", class: "text-xl bg-white mt-10 text-center no-underline text-black hover:text-yellow-dark transition hover:bg-white-dark") -%>
-    </p>
+      <%= link_to("Mars", "/months/#{month.date!.to_s("%Y")}/#{month.date!.to_s("%m")}", class: "text-center shadow-lg no-underline p-2 italic script block text-white hover:text-yellow text-3xl rounded transition my-3 hover:bg-grey") -%>
   <%- elsif month.date!.to_s("%m") == "04" %>
-    <p class="bg-white mx-6 rounded border border-black p-4">
-      <%= link_to("Avril", "/months/#{month.date!.to_s("%Y")}/#{month.date!.to_s("%m")}", class: "text-xl bg-white mt-10 text-center no-underline text-black hover:text-yellow-dark transition hover:bg-white-dark") -%>
-    </p>
+      <%= link_to("Avril", "/months/#{month.date!.to_s("%Y")}/#{month.date!.to_s("%m")}", class: "text-center shadow-lg no-underline p-2 italic script block text-white hover:text-yellow text-3xl rounded transition my-3 hover:bg-grey") -%>
   <%- elsif month.date!.to_s("%m") == "05" %>
-    <p class="bg-white mx-6 rounded border border-black p-4">
-      <%= link_to("Mai", "/months/#{month.date!.to_s("%Y")}/#{month.date!.to_s("%m")}", class: "text-xl bg-white mt-10 text-center no-underline text-black hover:text-yellow-dark transition hover:bg-white-dark") -%>
-    </p>
+      <%= link_to("Mai", "/months/#{month.date!.to_s("%Y")}/#{month.date!.to_s("%m")}", class: "text-center shadow-lg no-underline p-2 italic script block text-white hover:text-yellow text-3xl rounded transition my-3 hover:bg-grey") -%>
   <%- elsif month.date!.to_s("%m") == "06" %>
-    <p class="bg-white mx-6 rounded border border-black p-4">
-      <%= link_to("Juin", "/months/#{month.date!.to_s("%Y")}/#{month.date!.to_s("%m")}", class: "text-xl bg-white mt-10 text-center no-underline text-black hover:text-yellow-dark transition hover:bg-white-dark") -%>
-    </p>
+      <%= link_to("Juin", "/months/#{month.date!.to_s("%Y")}/#{month.date!.to_s("%m")}", class: "text-center shadow-lg no-underline p-2 italic script block text-white hover:text-yellow text-3xl rounded transition my-3 hover:bg-grey") -%>
   <%- elsif month.date!.to_s("%m") == "07" %>
-    <p class="bg-white mx-6 rounded border border-black p-4">
-      <%= link_to("Juillet", "/months/#{month.date!.to_s("%Y")}/#{month.date!.to_s("%m")}", class: "text-xl bg-white mt-10 text-center no-underline text-black hover:text-yellow-dark transition hover:bg-white-dark") -%>
-    </p>
+      <%= link_to("Juillet", "/months/#{month.date!.to_s("%Y")}/#{month.date!.to_s("%m")}", class: "text-center shadow-lg no-underline p-2 italic script block text-white hover:text-yellow text-3xl rounded transition my-3 hover:bg-grey") -%>
   <%- elsif month.date!.to_s("%m") == "08" %>
-    <p class="bg-white mx-6 rounded border border-black p-4">
-      <%= link_to("Aout", "/months/#{month.date!.to_s("%Y")}/#{month.date!.to_s("%m")}", class: "text-xl bg-white mt-10 text-center no-underline text-black hover:text-yellow-dark transition hover:bg-white-dark") -%>
-    </p>
+      <%= link_to("Aout", "/months/#{month.date!.to_s("%Y")}/#{month.date!.to_s("%m")}", class: "text-center shadow-lg no-underline p-2 italic script block text-white hover:text-yellow text-3xl rounded transition my-3 hover:bg-grey") -%>
   <%- elsif month.date!.to_s("%m") == "09" %>
-    <p class="bg-white mx-6 rounded border border-black p-4">
-      <%= link_to("Septembre", "/months/#{month.date!.to_s("%Y")}/#{month.date!.to_s("%m")}", class: "text-xl bg-white mt-10 text-center no-underline text-black hover:text-yellow-dark transition hover:bg-white-dark") -%>
-    </p>
+      <%= link_to("Septembre", "/months/#{month.date!.to_s("%Y")}/#{month.date!.to_s("%m")}", class: "text-center shadow-lg no-underline p-2 italic script block text-white hover:text-yellow text-3xl rounded transition my-3 hover:bg-grey") -%>
   <%- elsif month.date!.to_s("%m") == "10" %>
-    <p class="bg-white mx-6 rounded border border-black p-4">
-      <%= link_to("Octobre", "/months/#{month.date!.to_s("%Y")}/#{month.date!.to_s("%m")}", class: "text-xl bg-white mt-10 text-center no-underline text-black hover:text-yellow-dark transition hover:bg-white-dark") -%>
-    </p>
+      <%= link_to("Octobre", "/months/#{month.date!.to_s("%Y")}/#{month.date!.to_s("%m")}", class: "text-center shadow-lg no-underline p-2 italic script block text-white hover:text-yellow text-3xl rounded transition my-3 hover:bg-grey") -%>
   <%- elsif month.date!.to_s("%m") == "11" %>
-    <p class="bg-white mx-6 rounded border border-black p-4">
-      <%= link_to("Novembre", "/months/#{month.date!.to_s("%Y")}/#{month.date!.to_s("%m")}", class: "text-xl bg-white mt-10 text-center no-underline text-black hover:text-yellow-dark transition hover:bg-white-dark") -%>
-    </p>
+      <%= link_to("Novembre", "/months/#{month.date!.to_s("%Y")}/#{month.date!.to_s("%m")}", class: "text-center shadow-lg no-underline p-2 italic script block text-white hover:text-yellow text-3xl rounded transition my-3 hover:bg-grey") -%>
   <%- else %>
-    <p class="bg-white mx-6 rounded border border-black p-4">
-      <%= link_to("Décembre", "/months/#{month.date!.to_s("%Y")}/#{month.date!.to_s("%m")}", class: "text-xl bg-white mt-10 text-center no-underline text-black hover:text-yellow-dark transition hover:bg-white-dark") -%>
-    </p>
+      <%= link_to("Décembre", "/months/#{month.date!.to_s("%Y")}/#{month.date!.to_s("%m")}", class: "text-center shadow-lg no-underline p-2 italic script block text-white hover:text-yellow text-3xl rounded transition my-3 hover:bg-grey") -%>
   <%- end %>
 <%- end %>
 

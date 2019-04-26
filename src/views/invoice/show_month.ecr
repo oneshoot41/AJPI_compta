@@ -1,136 +1,175 @@
+<h1 class="text-center script my-4 text-2xl text-turquoise font-light">
+  <%- if params[:month] == "01" %>
+   Janvier
+  <%- elsif params[:month] == "02" %>
+   Février
+  <%- elsif params[:month] == "03" %>
+   Mars
+  <%- elsif params[:month] == "04" %>
+   Avril
+  <%- elsif params[:month] == "05" %>
+   Mai
+  <%- elsif params[:month] == "06" %>
+   Juin
+  <%- elsif params[:month] == "07" %>
+   Juillet
+  <%- elsif params[:month] == "08" %>
+   Aout
+  <%- elsif params[:month] == "09" %>
+   Septembre
+  <%- elsif params[:month] == "10" %>
+   Octobre
+  <%- elsif params[:month] == "11" %>
+   Novembre
+  <%- else %>
+   Décembre
+  <%- end %>
+  <%= params[:year] %>
+</h1>
+
 <div class="row text-center mt-12">
-  <a class="py-2 px-6 border rounded border-green hover:border-white bg-white text-green hover:bg-green hover:text-white no-underline transition"
+  <a class="mx-auto no-underline shadow bg-octoblue hover:bg-octoblue-light focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
     href="/invoices/new">Ajouter une Facture</a>
 </div>
+<p class="hidden" id="month" value="<%= params[:month] %>"></p>
+<p class="hidden" id="year" value="<%= params[:year] %>"></p>
+
+<h2 class="text-center text-green my-12">Factures payées</h1>
 
 
-<h1 class="text-center text-green my-12">Factures payées</h1>
+  <div class="flex justify-center">
+    <table class="text-center border border-black mx-6">
+      <caption class="border border-black">Crédit :</caption>
+      <thead>
+        <tr class="border-b border-black">
+          <th class="px-4 border-l border-black">Nom</th>
+          <th class="px-4 border-l border-black">Date</th>
+          <th class="px-4 border-l border-black">Montant HT</th>
+          <th class="px-4 border-l border-black">Montant TTC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%- invoices.each do |invoice| %>
+        <tr class="border-b border-black">
+          <%- if invoice.user.user_type.wording == "Client" && invoice.paid == true %>
+          <td class="border-l border-black">
+            <%= link_to("#{invoice.name}", "/invoices/#{invoice.id}", class: "no-underline text-green hover:text-red transition bg-white rounded") -%>
+          </td>
+          <td class="border-l border-black"><%= invoice.date!.to_s("%d-%m-%Y") %></td>
+          <td class="border-l border-black"><%= invoice.amount %></td>
+          <%- if invoice.amount %>
+          <td class="border-l border-black"><%= invoice.amount! + invoice.amount!*(invoice.tva!/100) %></td>
+          <%- end %>
+          <%- end %>
+        </tr>
+        <%- end %>
+      </tbody>
+    </table>
 
+    <table class="text-center border border-black mx-6">
+      <caption class="border border-black">Débit :
+        <select id="category_filter">
+          <option selected value="C%">Filtrer</option>
+          <option value="C%">Toutes</option>
+          <option value="C1">C1</option>
+          <option value="C2">C2</option>
+        </select>
+      </caption>
 
-<div class="flex justify-center">
-  <table class="text-center border border-black mx-6">
-    <caption class="border border-black">Crédit :</caption>
-    <thead>
-      <tr>
-        <th class="px-4">Nom</th>
-        <th class="px-4">Date</th>
-        <th class="px-4">Montant HT</th>
-        <th class="px-4">TVA</th>
-        <th class="px-4">Montant TTC</th>
-      </tr>
-    </thead>
-    <tbody>
-      <%- invoices.each do |invoice| %>
-      <%- if invoice.user.user_type.wording == "Client" && invoice.paid == true %>
-      <td>
-        <%= link_to("#{invoice.name}", "/invoices/#{invoice.id}", class: "no-underline text-green hover:text-red transition bg-white rounded") -%>
-      </td>
-      <td><%= invoice.date!.to_s("%d-%m-%Y") %></td>
-      <td><%= invoice.amount %></td>
-      <td><%= invoice.tva %></td>
-      <%- if invoice.amount %>
-      <td><%= invoice.amount! + invoice.amount!*(invoice.tva!/100) %></td>
-      <%- end %>
-      <%- end %>
-      <%- end %>
-    </tbody>
-  </table>
+      <thead>
+        <tr class="border-b border-black">
+          <th class="px-4 border-l border-black">Nom</th>
+          <th class="px-4 border-l border-black">Date</th>
+          <th class="px-4 border-l border-black">Montant HT</th>
+          <th class="px-4 border-l border-black">Montant TTC</th>
+          <th class="px-4 border-l border-black">Catégorie</th>
+        </tr>
+      </thead>
+      <tbody id="tbody_paid">
+        <%- invoices.each do |invoice| %>
+        <tr class="border-b border-black">
+          <%- if invoice.user.user_type.wording == "Fournisseur" && invoice.paid == true %>
+          <td class="border-l border-black">
+            <%= link_to("#{invoice.name}", "/invoices/#{invoice.id}", class: "no-underline text-green hover:text-red transition bg-white rounded") -%>
+          </td>
+          <td class="border-l border-black"><%= invoice.date!.to_s("%d-%m-%Y") %></td>
+          <td class="border-l border-black"><%= invoice.amount %></td>
+          <%- if invoice.amount %>
+          <td class="border-l border-black"><%= invoice.amount! + invoice.amount!*(invoice.tva!/100) %></td>
+          <%- end %>
+          <td class="border-l border-black" value="<%= invoice.type %>"><%= invoice.type %></td>
+          <%- end %>
+        </tr>
+        <%- end %>
+      </tbody>
+    </table>
+  </div>
 
-  <table class="text-center border border-black mx-6">
-    <caption class="border border-black">Débit :</caption>
-    <thead>
-      <tr>
-        <th class="px-4">Nom</th>
-        <th class="px-4">Date</th>
-        <th class="px-4">Montant HT</th>
-        <th class="px-4">TVA</th>
-        <th class="px-4">Montant TTC</th>
-        <th class="px-4">Catégorie</th>
-      </tr>
-    </thead>
-    <tbody>
-      <%- invoices.each do |invoice| %>
-      <%- if invoice.user.user_type.wording == "Fournisseur" && invoice.paid == true %>
-      <td>
-        <%= link_to("#{invoice.name}", "/invoices/#{invoice.id}", class: "no-underline text-green hover:text-red transition bg-white rounded") -%>
-      </td>
-      <td><%= invoice.date!.to_s("%d-%m-%Y") %></td>
-      <td><%= invoice.amount %></td>
-      <td><%= invoice.tva %></td>
-      <%- if invoice.amount %>
-      <td><%= invoice.amount! + invoice.amount!*(invoice.tva!/100) %></td>
-      <%- end %>
-      <td><%= invoice.type %></td>
-      <%- end %>
-      <%- end %>
-    </tbody>
-  </table>
-</div>
+  <h1 class="text-center text-red my-12">Factures non payées</h1>
+  <div class="flex justify-center">
+    <table class="text-center border border-black mx-6">
+      <caption class="border border-black">Crédit Prévisionnel :</caption>
+      <thead>
+        <tr class="border-b border-black">
+          <th class="px-4 border-l border-black">Nom</th>
+          <th class="px-4 border-l border-black">Date</th>
+          <th class="px-4 border-l border-black">Montant HT</th>
+          <th class="px-4 border-l border-black">Montant TTC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%- invoices.each do |invoice| %>
+        <tr class="border-b border-black">
+          <%- if invoice.user.user_type.wording == "Client" && invoice.paid == false %>
+          <td class="border-l border-black">
+            <%= link_to("#{invoice.name}", "/invoices/#{invoice.id}", class: "no-underline text-green hover:text-red transition bg-white rounded") -%>
+          </td>
+          <td class="border-l border-black"><%= invoice.date!.to_s("%d-%m-%Y") %></td>
+          <td class="border-l border-black"><%= invoice.amount %></td>
+          <%- if invoice.amount %>
+          <td class="border-l border-black"><%= invoice.amount! + invoice.amount!*(invoice.tva!/100) %></td>
+          <%- end %>
+          <%- end %>
+        </tr>
+        <%- end %>
+      </tbody>
+    </table>
 
-<h1 class="text-center text-red my-12">Factures non payées</h1>
-<div class="flex justify-center">
-  <table class="text-center border border-black mx-6">
-    <caption class="border border-black">Crédit Prévisionnel :</caption>
-    <thead>
-      <tr>
-        <th class="px-4">Nom</th>
-        <th class="px-4">Date</th>
-        <th class="px-4">Montant HT</th>
-        <th class="px-4">TVA</th>
-        <th class="px-4">Montant TTC</th>
-      </tr>
-    </thead>
-    <tbody>
-      <%- invoices.each do |invoice| %>
-      <%- if invoice.user.user_type.wording == "Client" && invoice.paid == false %>
-      <td>
-        <%= link_to("#{invoice.name}", "/invoices/#{invoice.id}", class: "no-underline text-green hover:text-red transition bg-white rounded") -%>
-      </td>
-      <td><%= invoice.date!.to_s("%d-%m-%Y") %></td>
-      <td><%= invoice.amount %></td>
-      <td><%= invoice.tva %></td>
-      <%- if invoice.amount %>
-      <td><%= invoice.amount! + invoice.amount!*(invoice.tva!/100) %></td>
-      <%- end %>
-      <%- end %>
-      <%- end %>
-    </tbody>
-  </table>
+    <table class="text-center border border-black mx-6">
+      <caption class="border border-black">Débit Prévisionnel :
+        <select id="category_filter_unpaid">
+          <option selected value="C%">Filtrer</option>
+          <option value="C%">Toutes</option>
+          <option value="C1">C1</option>
+          <option value="C2">C2</option>
+        </select>
+      </caption>
+      <thead>
+        <tr class="border-b border-black">
+          <th class="px-4 border-l border-black">Nom</th>
+          <th class="px-4 border-l border-black">Date</th>
+          <th class="px-4 border-l border-black">Montant HT</th>
+          <th class="px-4 border-l border-black">Montant TTC</th>
+          <th class="px-4 border-l border-black">Catégorie</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%- invoices.each do |invoice| %>
+        <tr class="border-b border-black">
+          <%- if invoice.user.user_type.wording == "Fournisseur" && invoice.paid == false %>
+          <td class="border-l border-black">
+            <%= link_to("#{invoice.name}", "/invoices/#{invoice.id}", class: "no-underline text-green hover:text-red transition bg-white rounded") -%>
+          </td>
+          <td class="border-l border-black"><%= invoice.date!.to_s("%d-%m-%Y") %></td>
+          <td class="border-l border-black"><%= invoice.amount %></td>
+          <%- if invoice.amount %>
+          <td class="border-l border-black"><%= invoice.amount! + invoice.amount!*(invoice.tva!/100) %></td>
+          <%- end %>
+          <td class="border-l border-black" value="<%= invoice.type %>"><%= invoice.type %></td>
+          <%- end %>
+        </tr>
+        <%- end %>
+      </tbody>
+    </table>
 
-  <table class="text-center border border-black mx-6">
-    <caption class="border border-black">Débit Prévisionnel :
-    <select id="invoice_type">
-      <option selected>Choisir</option>
-      <option value="C1">C1</option>
-      <option value="C2">C2</option>
-    </select>
-    </caption>
-    <thead>
-      <tr>
-        <th class="px-4">Nom</th>
-        <th class="px-4">Date</th>
-        <th class="px-4">Montant HT</th>
-        <th class="px-4">TVA</th>
-        <th class="px-4">Montant TTC</th>
-        <th class="px-4">Catégorie</th>
-      </tr>
-    </thead>
-    <tbody>
-      <%- invoices.each do |invoice| %>
-      <%- if invoice.user.user_type.wording == "Fournisseur" && invoice.paid == false %>
-      <td>
-        <%= link_to("#{invoice.name}", "/invoices/#{invoice.id}", class: "no-underline text-green hover:text-red transition bg-white rounded") -%>
-      </td>
-      <td><%= invoice.date!.to_s("%d-%m-%Y") %></td>
-      <td><%= invoice.amount %></td>
-      <td><%= invoice.tva %></td>
-      <%- if invoice.amount %>
-      <td><%= invoice.amount! + invoice.amount!*(invoice.tva!/100) %></td>
-      <%- end %>
-      <td><%= invoice.type %></td>
-      <%- end %>
-      <%- end %>
-    </tbody>
-  </table>
-
-</div>
+  </div>

@@ -7,6 +7,13 @@ class InvoiceController < ApplicationController
       only [:show_year] { set_year }
     end
 
+    def category_filter
+      invoices = Invoice.all("WHERE type LIKE (?) AND paid = ? AND YEAR(date) = ? AND MONTH(date) = ?", [params[:c],params[:p],params[:y],params[:m]] )
+      respond_with do
+        json invoices.to_json
+      end
+    end
+
     def index
       invoices = Invoice.all("WHERE paid = false")
       render "index.ecr"

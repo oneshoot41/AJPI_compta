@@ -1,28 +1,23 @@
 <div class="mx-auto text-center my-10 px-6">
-  <div class="col-sm-11">
-    <h2>Personnes enregistrées</h2>
-  </div>
+    <h2 class="no-underline p-2 italic text-yellow font-light text-5xl transition script">Personnes enregistrées</h2>
   <div class="my-4">
-    <a class="py-2 px-6 border rounded border-green hover:border-white bg-white text-green hover:bg-green hover:text-white no-underline transition" href="/users/new">Ajouter un Utilisateur</a>
+    <a class="mx-auto no-underline shadow bg-octoblue hover:bg-octoblue-light focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+      href="/users/new">Ajouter un Utilisateur</a>
   </div>
 </div>
 
 <div class="flex justify-center">
-  
-  <ul class="list-reset border border-black px-8 mx-4 py-4 text-center rounded bg-white">
-    <h2 class="py-4">Clients</h2>
-    <hr class="border border-octoblue">
-    <%- providers.each do |provider| %>
-      <li class="my-2"><%= link_to("#{provider.name}", "/users/#{provider.id}/edit", class: "no-underline text-green hover:text-red transition bg-white rounded") -%></li>
-    <%- end %>
-  </ul>
 
+  <%- user_types.each do |ut| %>
   <ul class="list-reset border border-black px-8 mx-4 py-4 text-center rounded bg-white">
-    <h2 class="py-4">Fournisseurs</h2>
+    <h2 class="py-4"><%= ut.wording %></h2>
     <hr class="border border-octoblue">
-    <%- customers.each do |customer| %>
-      <li class="my-2"><%= link_to("#{customer.name}", "/users/#{customer.id}/edit", class: "no-underline text-green hover:text-red transition bg-white rounded") -%></a></li>
+    <%- ut.users.each do |user| %>
+    <li class="my-2">
+      <%= link_to("#{user.name}", "/users/#{user.id}", class: "no-underline text-green hover:text-red transition") -%>
+    </li>
     <%- end %>
   </ul>
+  <%- end %>
 
 </div>

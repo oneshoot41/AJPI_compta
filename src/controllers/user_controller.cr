@@ -6,13 +6,12 @@ class UserController < ApplicationController
     end
 
     def index
-      users = User.all
-      providers = User.all("WHERE user_type_id = 2")
-      customers = User.all("WHERE user_type_id = 1")
+      user_types = UserType.all
       render "index.ecr"
     end
   
     def show
+      invoices = Invoice.all("WHERE user_id = ?", params[:id])
       render "show.ecr"
     end
   

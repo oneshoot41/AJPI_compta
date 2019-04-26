@@ -46,6 +46,10 @@ View the full documentation at https://tailwindcss.com.
 let colors = {
   'transparent': 'transparent',
 
+  'turquoise-dark': '#0095a7',
+  'turquoise': '#25c6d8',
+  'turquoise-light': '#6ef9ff',
+
   'black-dark': '#1b1b1b',
   'black': '#424242',
   'black-light': '#6d6d6d',
@@ -273,6 +277,8 @@ module.exports = {
     '3xl': '1.875rem',  // 30px
     '4xl': '2.25rem',   // 36px
     '5xl': '3rem',      // 48px
+    '6xl': '4rem',
+    '7xl': '5rem',
   },
 
 
