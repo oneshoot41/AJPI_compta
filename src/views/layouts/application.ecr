@@ -16,8 +16,11 @@
 </head>
 
 <body class="bg-black-light">
-  <nav class="bg-black py-2 w-full flex justify-center">
-    <ul class="inline-flex justify-center list-reset my-2">
+  <nav class="bg-black py-2 flex justify-center">
+    <ul class="list-reset">
+      <li class="lg:hidden xl:hidden text-center w-full px-10 my-auto text-white p-2 bg-black-light hover:text-black hover:bg-white transition pointer" id="nav_drop">
+        <i class="fas fa-bars"></i>
+      </li>
       <%= render(partial: "layouts/_nav.ecr") %>
     </ul>
   </nav>

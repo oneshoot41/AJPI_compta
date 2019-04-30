@@ -37,11 +37,6 @@ class InvoiceController < ApplicationController
       invoices = Invoice.all("WHERE YEAR(date) = ? AND MONTH(date) = ? ORDER BY date DESC", [params[:year],params[:month]])
       render "show_month.ecr"
     end
-
-    def current_month
-      invoices = Invoice.all("WHERE YEAR(date) = YEAR(now()) AND MONTH(date) = MONTH(now())")
-      render "show_month.ecr"
-    end
     
     def new
       date = Time.now

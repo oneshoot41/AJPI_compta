@@ -1,23 +1,25 @@
-<%- active = context.request.path == "/" ? "no-underline p-2 italic script font-light text-yellow hover:text-white text-2xl transition" : "no-underline p-2 italic script font-light text-white hover:text-yellow text-2xl transition" %>
-<li class="py-2">
+<div class="md:hidden sm:hidden lg:inline-flex xl:inline-flex xl:justify-center lg:justify-center md:block sm:block md:text-center sm:text-center list-reset my-2" id="navbar">
+<%- active = context.request.path == "/" ? "no-underline p-2 italic script font-light text-yellow hover:text-white sm:text-lg md:text-xl lg:text-2xl xl:text-2xl md:w-full sm:w-full transition" : "no-underline p-2 italic script font-light text-white hover:text-yellow sm:text-lg md:text-xl lg:text-2xl xl:text-2xl transition" %>
+<li class="md:py-2">
   <a href="/" class="<%= active %>">Accueil</a>
 </li>
 
-<%- active = context.request.path == "/payment_methods" ? "py-2 px-6 rounded ml-10 bg-white text-black font-bold hover:bg-black-light hover:text-white no-underline transition" : "py-2 px-6 rounded ml-10 bg-black-light text-white font-bold hover:bg-white hover:text-black no-underline transition" %>
-<li class="py-2 my-auto">
+<%- active = context.request.path == "/invoices/new" ? "sm:w-full md:w-full sm:block md:block sm:my-2 md:my-2 sm:py-1 md:py-1 lg:py-3 xl:py-3 px-6 rounded lg:ml-10 xl:ml-10 bg-white text-black font-bold hover:bg-black-light hover:text-white no-underline transition" : "sm:w-full md:w-full sm:block md:block sm:my-2 md:my-2 sm:py-1 md:py-1 lg:py-3 xl:py-3 px-6 rounded lg:ml-10 xl:ml-10 bg-black-light text-white font-bold hover:bg-white hover:text-black no-underline transition" %>
+<li class="my-auto">
   <a href="/invoices/new" class="<%= active %>">Nouvelle Facture</a>
 </li>
 
-<%- active = context.request.path == "/invoices" ? "py-2 px-6 rounded ml-10 bg-white text-black font-bold hover:bg-black-light hover:text-white no-underline transition" : "py-2 px-6 rounded ml-10 bg-black-light text-white font-bold hover:bg-white hover:text-black no-underline transition" %>
-<li class="py-2 my-auto">
+<%- active = context.request.path == "/invoices" ? "sm:w-full md:w-full sm:block md:block sm:my-2 md:my-2 sm:py-1 md:py-1 lg:py-3 xl:py-3 px-6 rounded lg:ml-10 xl:ml-10 bg-white text-black font-bold hover:bg-black-light hover:text-white no-underline transition" : "sm:w-full md:w-full sm:block md:block sm:my-2 md:my-2 sm:py-1 md:py-1 lg:py-3 xl:py-3 px-6 rounded lg:ml-10 xl:ml-10 bg-black-light text-white font-bold hover:bg-white hover:text-black no-underline transition" %>
+<li class="my-auto">
   <a href="/invoices" class="<%= active %>">Factures non payées</a>
 </li>
-<%- active = context.request.path == "/current_month" ? "py-2 px-6 rounded ml-10 bg-white text-black font-bold hover:bg-black-light hover:text-white no-underline transition" : "py-2 px-6 rounded ml-10 bg-black-light text-white font-bold hover:bg-white hover:text-black no-underline transition" %>
-<li class="py-2 my-auto">
+<%- active = context.request.path == "/years" ? "sm:w-full md:w-full sm:block md:block sm:my-2 md:my-2 sm:py-1 md:py-1 lg:py-3 xl:py-3 px-6 rounded lg:ml-10 xl:ml-10 bg-white text-black font-bold hover:bg-black-light hover:text-white no-underline transition" : "sm:w-full md:w-full sm:block md:block sm:my-2 md:my-2 sm:py-1 md:py-1 lg:py-3 xl:py-3 px-6 rounded lg:ml-10 xl:ml-10 bg-black-light text-white font-bold hover:bg-white hover:text-black no-underline transition" %>
+<li class="my-auto">
   <a href="/years" class="<%= active %>">Années</a>
 </li>
 
-<%- active = context.request.path == "/user_types" ? "py-2 px-6 rounded ml-10 bg-white text-black font-bold hover:bg-black-light hover:text-white no-underline transition" : "py-2 px-6 rounded ml-10 bg-black-light text-white font-bold hover:bg-white hover:text-black no-underline transition" %>
-<li class="py-2 my-auto">
+<%- active = context.request.path == "/users" ? "sm:w-full md:w-full sm:block md:block sm:my-2 md:my-2 sm:py-1 md:py-1 lg:py-3 xl:py-3 px-6 rounded lg:ml-10 xl:ml-10 bg-white text-black font-bold hover:bg-black-light hover:text-white no-underline transition" : "sm:w-full md:w-full sm:block md:block sm:my-2 md:my-2 sm:py-1 md:py-1 lg:py-3 xl:py-3 px-6 rounded lg:ml-10 xl:ml-10 bg-black-light text-white font-bold hover:bg-white hover:text-black no-underline transition" %>
+<li class="my-auto">
   <a href="/users" class="<%= active %>">Personnes enregistrées</a>
 </li>
+</div>

@@ -1,8 +1,98 @@
 <div class="mt-10 p-4 rounded bg-grey">
   <h1 class="text-center text-yellow script font-light text-6xl pt-4 pb-8">Vue d'ensemble</h1>
-  <div class="flex w-1/2 mx-auto">
-    <button id="current_month" class="mr-auto text-center py-1 px-6 script transition text-white hover:text-turquoise bg-black-light text-4xl font-light rounded">Mois en cours</button>
-    <button id="quarter_historic" class="mx-auto text-center py-1 px-6 script transition text-white hover:text-turquoise bg-black-light text-4xl font-light rounded">Trimestres</button>
-    <button id="year_historic" class="ml-auto text-center py-1 px-6 script transition text-white hover:text-turquoise bg-black-light text-4xl font-light rounded">Années</button>
+  <div class="flex mx-auto border-t border-b border-black py-2">
+    <a href="/"
+      class="no-underline mr-auto text-center script transition text-white hover:text-turquoise bg-black-light font-light rounded xl:py-1 xl:px-6 xl:text-4xl lg:py-1 lg:px-6 lg:text-4xl md:px-4 md:text-3xl sm:px-2 sm:text-2xl">Mois
+      en cours</a>
+      <a href="/quarter_historic"
+      class="no-underline mx-auto text-center script transition text-white hover:text-turquoise bg-black-light font-light rounded xl:py-1 xl:px-6 xl:text-4xl lg:py-1 lg:px-6 lg:text-4xl md:px-4 md:text-3xl sm:px-2 sm:text-2xl">Trimestres</a>
+      <a href="/year_historic"
+      class="no-underline ml-auto text-center script transition text-white hover:text-turquoise bg-black-light font-light rounded xl:py-1 xl:px-6 xl:text-4xl lg:py-1 lg:px-6 lg:text-4xl md:px-4 md:text-3xl sm:px-2 sm:text-2xl">Années</a>
   </div>
+  
+  <h2 class="mt-8 rounded text-center text-black script font-light text-4xl p-6">Totaux :</h2>
+  <div class="flex justify-between">
+
+          <!-- CREDIT -->
+
+    <div class="border border-black rounded shadow-lg sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/3 mx-auto">
+      <h3 class="text-center script font-light sm:text-xl md:text-xl lg:text-2xl xl:text-2xl">Total Crédit</h3>
+      <div id="content">
+
+        <h4 class="text-center script font-light sm:text-lg md:text-lg lg:text-xl xl:text-xl">
+          <%- final_credit = 0 %>
+            <%- current_credits.each do |credit| %>
+              <%- final_credit = final_credit + credit.amount! + credit.amount!*(credit.tva!/100)%>
+            <%- end %>
+          <%= final_credit.round(2) %>
+          € TTC
+        </h4>
+
+        <%- paid_credit = 0 %>
+        <p class="font-bold sm:text-sm md:text-sm lg:text-lg xl:text-lg mx-4">Sous Total Réglé :
+          <%- current_credits.each do |credit| %>
+            <%- if credit.paid == true %>
+              <%- paid_credit = paid_credit + credit.amount! + credit.amount!*(credit.tva!/100) %>
+            <%- end %>
+          <%- end %>
+        <%= paid_credit.round(2) %>
+          € TTC
+        </p>
+
+        <%- unpaid_credit = 0 %>
+        <p class="font-bold sm:text-sm md:text-sm lg:text-lg xl:text-lg mx-4">Sous Total En Cours :
+          <%- current_credits.each do |credit| %>
+            <%- if credit.paid == false %>
+              <%- unpaid_credit = unpaid_credit + credit.amount! + credit.amount!*(credit.tva!/100)%>
+            <%- end %>
+          <%- end %>
+          <%= unpaid_credit.round(2) %>
+          € TTC</p>
+      </div>
+    </div>
+
+    <!-- DEBIT -->
+
+    <div class="border border-black rounded shadow-lg sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/3 mx-auto">
+      <h3 class="text-center script font-light sm:text-xl md:text-xl lg:text-2xl xl:text-2xl">Total Débit</h3>
+      <div id="content">
+
+        <h4 class="text-center script font-light sm:text-lg md:text-lg lg:text-xl xl:text-xl">
+          <%- final_debit = 0 %>
+            <%- current_debits.each do |debit| %>
+              <%- final_debit = final_debit + debit.amount! + debit.amount!*(debit.tva!/100)%>
+            <%- end %>
+          <%= final_debit.round(2) %>
+          € TTC
+        </h4>
+
+        <%- cat_one = 0 %>
+        <p class="font-bold sm:text-sm md:text-sm lg:text-lg xl:text-lg mx-4">Sous Total C1 :
+          <%- current_debits.each do |debit| %>
+            <%- if debit.type == "C1" %>
+              <%- cat_one = cat_one + debit.amount! + debit.amount!*(debit.tva!/100)%>
+            <%- end %>
+          <%- end %>
+        <%= cat_one.round(2) %>
+          € TTC
+        </p>
+
+        <%- cat_two = 0 %>
+        <p class="font-bold sm:text-sm md:text-sm lg:text-lg xl:text-lg mx-4">Sous Total C2 :
+          <%- current_debits.each do |debit| %>
+            <%- if debit.type == "C2" %>
+              <%- cat_two = cat_two + debit.amount! + debit.amount!*(debit.tva!/100)%>
+            <%- end %>
+          <%- end %>
+          <%= cat_two.round(2) %>
+          € TTC</p>
+      </div>
+    </div>
+  </div>
+  <%- final = final_credit - final_debit %>
+  <%- if final > 0 %>
+    <h2 class="px-8 py-2 font-bold text-white bg-green text-center rounded mt-4"><%= final.round(2) %> € HT</h2>
+  <%- else %>
+    <h2 class="px-8 py-2 font-bold text-white bg-red text-center rounded mt-4"><%= final.round(2) %> € HT</h2>
+  <%- end %>
 </div>

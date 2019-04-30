@@ -28,9 +28,12 @@ Amber::Server.configure do
   end
 
   routes :web do
+    get "/year_historic/:fmonths/:fmonthe/:fyear/:lmonths/:lmonthe/:lyear", HomeController, :year
+    get "/year_historic", HomeController, :year_historic 
+    get "/quarter/:start/:end/:year", HomeController, :quarter
+    get "/quarter_historic", HomeController, :quarter_historic
     get "/invoice_category/json", InvoiceController, :category_filter
     resources "/payment_methods", PaymentMethodController
-    get "/current_month", InvoiceController, :current_month
     get "/years", InvoiceController, :year
     get "/years/:year", InvoiceController, :show_year
     get "/months/:year/:month", InvoiceController, :show_month

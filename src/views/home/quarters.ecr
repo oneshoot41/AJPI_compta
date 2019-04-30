@@ -1,0 +1,30 @@
+<div class="mt-10 p-4 rounded bg-grey">
+  <h1 class="text-center text-yellow script font-light text-6xl pt-4 pb-8">Vue d'ensemble</h1>
+  <div class="flex mx-auto border-t border-b border-black py-2">
+    <a href="/"
+      class="no-underline mr-auto text-center script transition text-white hover:text-turquoise bg-black-light font-light rounded xl:py-1 xl:px-6 xl:text-4xl lg:py-1 lg:px-6 lg:text-4xl md:px-4 md:text-3xl sm:px-2 sm:text-2xl">Mois
+      en cours</a>
+      <a href="/quarter_historic"
+      class="no-underline mx-auto text-center script transition text-white hover:text-turquoise bg-black-light font-light rounded xl:py-1 xl:px-6 xl:text-4xl lg:py-1 lg:px-6 lg:text-4xl md:px-4 md:text-3xl sm:px-2 sm:text-2xl">Trimestres</a>
+      <a href="/year_historic"
+      class="no-underline ml-auto text-center script transition text-white hover:text-turquoise bg-black-light font-light rounded xl:py-1 xl:px-6 xl:text-4xl lg:py-1 lg:px-6 lg:text-4xl md:px-4 md:text-3xl sm:px-2 sm:text-2xl">Années</a>
+  </div>
+
+  <h2 class="mt-8 rounded text-center text-black script font-light text-4xl p-6">Trimestres</h2>
+
+  <div class="shadow-lg text-center text-3xl">
+    <%- quarters.each do |quarter| %>
+      <h2 class="text-center text-red script font-light text-3xl"><%= quarter.date!.to_s("%Y") %></h1>
+      <%- if quarter.date!.to_s("%m") == "10" || quarter.date!.to_s("%m") == "11" || quarter.date!.to_s("%m") == "12" %>
+        <%= link_to("Trimestre 1", "/quarter/10/12/#{quarter.date!.to_s("%Y")}", class: "text-center shadow-lg no-underline p-2 italic script block text-white hover:text-yellow text-3xl rounded transition my-3 hover:bg-grey") -%>
+      <%- elsif quarter.date!.to_s("%m") == "01" || quarter.date!.to_s("%m") == "02" || quarter.date!.to_s("%m") == "03" %>
+        <%= link_to("Trimestre 2", "/quarter/01/03/#{quarter.date!.to_s("%Y")}", class: "text-center shadow-lg no-underline p-2 italic script block text-white hover:text-yellow text-3xl rounded transition my-3 hover:bg-grey") -%>
+      <%- elsif quarter.date!.to_s("%m") == "04" || quarter.date!.to_s("%m") == "05" || quarter.date!.to_s("%m") == "06" %>
+        <%= link_to("Trimestre 3", "/quarter/04/06/#{quarter.date!.to_s("%Y")}", class: "text-center shadow-lg no-underline p-2 italic script block text-white hover:text-yellow text-3xl rounded transition my-3 hover:bg-grey") -%>
+      <%- elsif quarter.date!.to_s("%m") == "07" || quarter.date!.to_s("%m") == "08" || quarter.date!.to_s("%m") == "09" %>
+        <%= link_to("Trimestre 4", "/quarter/07/09/#{quarter.date!.to_s("%Y")}", class: "text-center shadow-lg no-underline p-2 italic script block text-white hover:text-yellow text-3xl rounded transition my-3 hover:bg-grey") -%>
+      <%- else %>
+        <p class="text-center shadow-lg no-underline p-2 italic script block text-white hover:text-yellow text-3xl rounded transition my-3 hover:bg-grey">Aucun trimestre trouvé</p>
+      <%- end %>
+    <%- end %>
+  </div>

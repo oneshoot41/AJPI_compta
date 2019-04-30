@@ -1,7 +1,7 @@
 <h1 class="text-center script my-4 text-2xl text-turquoise font-light">Show <%= user_type.wording %></h1>
 
 <p>
-  <%= link_to("Back", "/user_types", class: "btn btn-light btn-sm") -%>
-  <%= link_to("Edit", "/user_types/#{user_type.id}/edit", class: "btn btn-success btn-sm") -%>
-  <%= link_to("Delete", "/user_types/#{user_type.id}?_csrf=#{csrf_token}", "data-method": "delete", "data-confirm": "Are you sure?", class: "btn btn-danger btn-sm") -%>
+  <%= link_to("Retour", "/user_types", class: "btn btn-light btn-sm") -%>
+  <%= link_to("Modifier", "/user_types/#{user_type.id}/edit", class: "btn btn-success btn-sm") -%>
+  <%= link_to("Supprimer", "/user_types/#{user_type.id}?_csrf=#{csrf_token}", "data-method": "delete", "data-confirm": "Are you sure?", class: "btn btn-danger btn-sm") -%>
 </p>

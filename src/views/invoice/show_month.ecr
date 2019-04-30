@@ -38,36 +38,53 @@
 
 
   <div class="flex justify-center">
-    <table class="text-center border border-black mx-6">
-      <caption class="border border-black">Crédit :</caption>
+    <table class="text-center border bg-white text-black-dark font-light script text-xl border-black mx-6">
+      <caption class="border-t border-l border-r border-black bg-grey-light">Crédit :
+      </caption>
+
       <thead>
         <tr class="border-b border-black">
           <th class="px-4 border-l border-black">Nom</th>
           <th class="px-4 border-l border-black">Date</th>
           <th class="px-4 border-l border-black">Montant HT</th>
-          <th class="px-4 border-l border-black">Montant TTC</th>
+          <th class="px-4 border-l border-r border-black">Montant TTC</th>
         </tr>
       </thead>
       <tbody>
         <%- invoices.each do |invoice| %>
-        <tr class="border-b border-black">
+        <tr class="border-b border-r border-black">
           <%- if invoice.user.user_type.wording == "Client" && invoice.paid == true %>
           <td class="border-l border-black">
-            <%= link_to("#{invoice.name}", "/invoices/#{invoice.id}", class: "no-underline text-green hover:text-red transition bg-white rounded") -%>
+            <%= link_to("#{invoice.name}", "/invoices/#{invoice.id}", class: "no-underline text-octoblue hover:text-turquoise transition") -%>
           </td>
-          <td class="border-l border-black"><%= invoice.date!.to_s("%d-%m-%Y") %></td>
+          <td class="border-l border-black"><%= invoice.date!.to_s("%d/%m/%Y") %></td>
           <td class="border-l border-black"><%= invoice.amount %></td>
           <%- if invoice.amount %>
-          <td class="border-l border-black"><%= invoice.amount! + invoice.amount!*(invoice.tva!/100) %></td>
+          <%- ttc = invoice.amount! + invoice.amount!*(invoice.tva!/100) %>
+          <td class="border-l border-r border-black"><%= ttc.round(2) %></td>
           <%- end %>
           <%- end %>
         </tr>
         <%- end %>
       </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="5" class="border-l border-b border-r border-black">
+          <%- final_debit = 0 %>
+          <%- invoices.each do |invoice| %>
+          <%- if invoice.user.user_type.wording == "Client" && invoice.paid == true %>
+              <%- final_debit = final_debit + invoice.amount!.round(2) + invoice.amount!.round(2)*(invoice.tva!/100)%>
+          <%- end %>
+          <%- end %>
+          <%= final_debit.round(2) %>
+          € TTC
+          </td>
+        </tr>
+      </tfoot>
     </table>
 
-    <table class="text-center border border-black mx-6">
-      <caption class="border border-black">Débit :
+    <table class="text-center border bg-white text-black-dark font-light script text-xl border-black mx-6">
+      <caption class="border-t border-l border-r border-black bg-grey-light">Débit :
         <select id="category_filter">
           <option selected value="C%">Filtrer</option>
           <option value="C%">Toutes</option>
@@ -77,99 +94,147 @@
       </caption>
 
       <thead>
-        <tr class="border-b border-black">
+        <tr class="border-b border-r border-black">
           <th class="px-4 border-l border-black">Nom</th>
           <th class="px-4 border-l border-black">Date</th>
           <th class="px-4 border-l border-black">Montant HT</th>
           <th class="px-4 border-l border-black">Montant TTC</th>
-          <th class="px-4 border-l border-black">Catégorie</th>
+          <th class="px-4 border-l border-r border-black">Catégorie</th>
         </tr>
       </thead>
       <tbody id="tbody_paid">
         <%- invoices.each do |invoice| %>
-        <tr class="border-b border-black">
+        <tr class="border-b border-r border-black">
           <%- if invoice.user.user_type.wording == "Fournisseur" && invoice.paid == true %>
           <td class="border-l border-black">
-            <%= link_to("#{invoice.name}", "/invoices/#{invoice.id}", class: "no-underline text-green hover:text-red transition bg-white rounded") -%>
+            <%= link_to("#{invoice.name}", "/invoices/#{invoice.id}", class: "no-underline text-octoblue hover:text-turquoise transition") -%>
           </td>
-          <td class="border-l border-black"><%= invoice.date!.to_s("%d-%m-%Y") %></td>
+          <td class="border-l border-black"><%= invoice.date!.to_s("%d/%m/%Y") %></td>
           <td class="border-l border-black"><%= invoice.amount %></td>
           <%- if invoice.amount %>
-          <td class="border-l border-black"><%= invoice.amount! + invoice.amount!*(invoice.tva!/100) %></td>
+          <%- ttc = invoice.amount! + invoice.amount!*(invoice.tva!/100) %>
+          <td class="border-l border-black"><%= ttc.round(2) %></td>
           <%- end %>
-          <td class="border-l border-black" value="<%= invoice.type %>"><%= invoice.type %></td>
+          <td class="border-l border-r border-black" value="<%= invoice.type %>"><%= invoice.type %></td>
           <%- end %>
         </tr>
         <%- end %>
       </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="5" class="border-l border-b border-r border-black">
+          <%- final_debit = 0 %>
+          <%- invoices.each do |invoice| %>
+          <%- if invoice.user.user_type.wording == "Fournisseur" && invoice.paid == true %>
+              <%- final_debit = final_debit + invoice.amount!.round(2) + invoice.amount!.round(2)*(invoice.tva!/100)%>
+          <%- end %>
+          <%- end %>
+          <%= final_debit.round(2) %>
+          € TTC
+          </td>
+        </tr>
+      </tfoot>
     </table>
   </div>
 
   <h1 class="text-center text-red my-12">Factures non payées</h1>
   <div class="flex justify-center">
-    <table class="text-center border border-black mx-6">
-      <caption class="border border-black">Crédit Prévisionnel :</caption>
+    <table class="text-center border bg-white text-black-dark font-light script text-xl border-black mx-6">
+      <caption class="border-t border-l border-r border-black bg-grey-light">Crédit :
+      </caption>
+
       <thead>
         <tr class="border-b border-black">
           <th class="px-4 border-l border-black">Nom</th>
           <th class="px-4 border-l border-black">Date</th>
           <th class="px-4 border-l border-black">Montant HT</th>
-          <th class="px-4 border-l border-black">Montant TTC</th>
+          <th class="px-4 border-l border-r border-black">Montant TTC</th>
         </tr>
       </thead>
       <tbody>
         <%- invoices.each do |invoice| %>
-        <tr class="border-b border-black">
+        <tr class="border-b border-r border-black">
           <%- if invoice.user.user_type.wording == "Client" && invoice.paid == false %>
           <td class="border-l border-black">
-            <%= link_to("#{invoice.name}", "/invoices/#{invoice.id}", class: "no-underline text-green hover:text-red transition bg-white rounded") -%>
+            <%= link_to("#{invoice.name}", "/invoices/#{invoice.id}", class: "no-underline text-octoblue hover:text-turquoise transition") -%>
           </td>
-          <td class="border-l border-black"><%= invoice.date!.to_s("%d-%m-%Y") %></td>
+          <td class="border-l border-black"><%= invoice.date!.to_s("%d/%m/%Y") %></td>
           <td class="border-l border-black"><%= invoice.amount %></td>
           <%- if invoice.amount %>
-          <td class="border-l border-black"><%= invoice.amount! + invoice.amount!*(invoice.tva!/100) %></td>
+          <%- ttc = invoice.amount! + invoice.amount!*(invoice.tva!/100) %>
+          <td class="border-l border-r border-black"><%= ttc.round(2) %></td>
           <%- end %>
           <%- end %>
         </tr>
         <%- end %>
       </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="5" class="border-l border-b border-r border-black">
+          <%- final_debit = 0 %>
+          <%- invoices.each do |invoice| %>
+          <%- if invoice.user.user_type.wording == "Client" && invoice.paid == false %>
+              <%- final_debit = final_debit + invoice.amount!.round(2) + invoice.amount!.round(2)*(invoice.tva!/100)%>
+          <%- end %>
+          <%- end %>
+          <%= final_debit.round(2) %>
+          € TTC
+          </td>
+        </tr>
+      </tfoot>
     </table>
 
-    <table class="text-center border border-black mx-6">
-      <caption class="border border-black">Débit Prévisionnel :
-        <select id="category_filter_unpaid">
+    <table class="text-center border bg-white text-black-dark font-light script text-xl border-black mx-6">
+      <caption class="border-t border-l border-r border-black bg-grey-light">Débit :
+        <select id="category_filter">
           <option selected value="C%">Filtrer</option>
           <option value="C%">Toutes</option>
           <option value="C1">C1</option>
           <option value="C2">C2</option>
         </select>
       </caption>
+
       <thead>
-        <tr class="border-b border-black">
+        <tr class="border-b border-r border-black">
           <th class="px-4 border-l border-black">Nom</th>
           <th class="px-4 border-l border-black">Date</th>
           <th class="px-4 border-l border-black">Montant HT</th>
           <th class="px-4 border-l border-black">Montant TTC</th>
-          <th class="px-4 border-l border-black">Catégorie</th>
+          <th class="px-4 border-l border-r border-black">Catégorie</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="tbody_unpaid">
         <%- invoices.each do |invoice| %>
-        <tr class="border-b border-black">
+        <tr class="border-b border-r border-black">
           <%- if invoice.user.user_type.wording == "Fournisseur" && invoice.paid == false %>
           <td class="border-l border-black">
-            <%= link_to("#{invoice.name}", "/invoices/#{invoice.id}", class: "no-underline text-green hover:text-red transition bg-white rounded") -%>
+            <%= link_to("#{invoice.name}", "/invoices/#{invoice.id}", class: "no-underline text-octoblue hover:text-turquoise transition") -%>
           </td>
-          <td class="border-l border-black"><%= invoice.date!.to_s("%d-%m-%Y") %></td>
+          <td class="border-l border-black"><%= invoice.date!.to_s("%d/%m/%Y") %></td>
           <td class="border-l border-black"><%= invoice.amount %></td>
           <%- if invoice.amount %>
-          <td class="border-l border-black"><%= invoice.amount! + invoice.amount!*(invoice.tva!/100) %></td>
+          <%- ttc = invoice.amount! + invoice.amount!*(invoice.tva!/100) %>
+          <td class="border-l border-black"><%= ttc.round(2) %></td>
           <%- end %>
-          <td class="border-l border-black" value="<%= invoice.type %>"><%= invoice.type %></td>
+          <td class="border-l border-r border-black" value="<%= invoice.type %>"><%= invoice.type %></td>
           <%- end %>
         </tr>
         <%- end %>
       </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="5" class="border-l border-b border-r border-black">
+          <%- final_debit = 0 %>
+          <%- invoices.each do |invoice| %>
+          <%- if invoice.user.user_type.wording == "Fournisseur" && invoice.paid == false %>
+              <%- final_debit = final_debit + invoice.amount!.round(2) + invoice.amount!.round(2)*(invoice.tva!/100)%>
+          <%- end %>
+          <%- end %>
+          <%= final_debit.round(2) %>
+          € TTC
+          </td>
+        </tr>
+      </tfoot>
     </table>
 
   </div>
