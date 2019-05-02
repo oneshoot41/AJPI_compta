@@ -1,3 +1,4 @@
+<div class="sm:px-8">
 <%- action = (invoice.id ? "/invoices/" + invoice.id.to_s : "/invoices") %>
 <form action="<%= action %>" method="post" class="w-full max-w-md border rounded border-grey bg-white p-6 mx-auto">
   <%= csrf_tag %>
@@ -6,17 +7,17 @@
   <%- end %>
 
 
-  <div class="flex flex-wrap">
+  <div class="xl:flex lg:flex md:flex xl:flex-wrap lg:flex-wrap md:flex-wrap">
 
     <!-- INVOICE NAME -->
-    <div class="w-1/2 pr-3">
+    <div class="xl:w-1/2 lg:w-1/2 md:w-1/2 sm:w-full">
       <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="name">Nom de la
         facture</label>
       <%= text_field(name: "name", value: invoice.name, placeholder: "Achat de souris TERRA", class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white") -%>
     </div>
 
     <!-- AMOUNT -->
-    <div class="w-1/2 pl-3">
+    <div class="xl:w-1/2 lg:w-1/2 md:w-1/2 sm:w-full xl:pl-3 lg:pl-3 md:pl-3">
       <label for="amount" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">Montant
         :</label>
       <input
@@ -194,3 +195,4 @@
     </div>
 
 </form>
+</div>

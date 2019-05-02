@@ -1,4 +1,4 @@
-<div class="mt-10 p-4 rounded bg-grey">
+<div class="mt-10 p-4 rounded bg-grey sm:mx-6">
   <h1 class="text-center text-yellow script font-light text-6xl pt-4 pb-8">Vue d'ensemble</h1>
   <div class="flex mx-auto border-t border-b border-black py-2">
     <a href="/"
@@ -91,8 +91,8 @@
   </div>
   <%- final = final_credit - final_debit %>
   <%- if final > 0 %>
-    <h2 class="px-8 py-2 font-bold text-white bg-green text-center rounded mt-4"><%= final.round(2) %> € HT</h2>
+    <h2 class="px-8 py-2 font-bold text-white bg-green text-center rounded mt-4"><%= final.round(2) %> € TTC</h2>
   <%- else %>
-    <h2 class="px-8 py-2 font-bold text-white bg-red text-center rounded mt-4"><%= final.round(2) %> € HT</h2>
+    <h2 class="px-8 py-2 font-bold text-white bg-red text-center rounded mt-4"><%= final.round(2) %> € TTC</h2>
   <%- end %>
 </div>

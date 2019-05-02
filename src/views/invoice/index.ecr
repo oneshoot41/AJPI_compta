@@ -1,16 +1,17 @@
-<div class="mx-auto">
-  <h1 class="text-center script my-4 text-2xl text-turquoise font-light">Factures Non payées</h1>
-  <ul class="rounded border border-grey bg-grey-lighter list-reset p-6 my-2">
-    <%- invoices.each do |invoice| %>
-    <div class="inline-flex w-full justify-between border-black bg-white my-2 p-2">
-    <li><%= invoice.name %></li>
-    <div>
-      <%= link_to("Voir", "/invoices/#{invoice.id}", class: "no-underline shadow bg-green hover:bg-green-light focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded") -%>
-      <%= link_to("Modifier", "/invoices/#{invoice.id}/edit", class: "no-underline shadow bg-octoblue-dark hover:bg-octoblue-light focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded") -%>
-      <%= link_to("Supprimer", "/invoices/#{invoice.id}?_csrf=#{csrf_token}", "data-method": "delete", "data-confirm": "Are you sure?", class: "no-underline shadow bg-red hover:bg-red-light focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded") -%>
-    </div>
+<div class="sm:mx-6">
+  <div class="mx-auto">
+    <h1 class="text-center script my-4 text-2xl text-turquoise font-light">Factures Non payées</h1>
+    <ul class="rounded border border-grey bg-grey-lighter list-reset p-6 my-2">
+      <%- invoices.each do |invoice| %>
+      <div class="inline-flex w-full justify-between border-black bg-white my-2 p-2">
+        <li class="sm:text-sm md:text-md lg:text-lg xl:text-xl"><%= invoice.name %></li>
+        <div class="sm:text-sm md:text-md lg:text-lg xl:text-xl">
+          <%= link_to("Voir", "/invoices/#{invoice.id}", class: "no-underline shadow bg-green hover:bg-green-light focus:shadow-outline focus:outline-none text-white font-bold lg:py-2 lg:px-4 xl:py-2 xl:px-4 md:py-2 md:px-4 sm:py-1 sm:px-2 rounded") -%>
+          <%= link_to("Modifier", "/invoices/#{invoice.id}/edit", class: "no-underline shadow bg-octoblue-dark hover:bg-octoblue-light focus:shadow-outline focus:outline-none text-white font-bold lg:py-2 lg:px-4 xl:py-2 xl:px-4 md:py-2 md:px-4 sm:py-1 sm:px-2 rounded") -%>
+          <%= link_to("Supprimer", "/invoices/#{invoice.id}?_csrf=#{csrf_token}", "data-method": "delete", "data-confirm": "Are you sure?", class: "no-underline shadow bg-red hover:bg-red-light focus:shadow-outline focus:outline-none text-white font-bold lg:py-2 lg:px-4 xl:py-2 xl:px-4 md:py-2 md:px-4 sm:py-1 sm:px-2 rounded") -%>
+        </div>
+      </div>
+      <%- end %>
+    </ul>
   </div>
-    <%- end %>
-  </ul>
-
 </div>

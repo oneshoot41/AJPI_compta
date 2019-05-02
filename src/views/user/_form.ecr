@@ -1,10 +1,11 @@
-<%- action = (user.id ? "/users/" + user.id.to_s : "/users") %>
-<div class="mx-auto w-full max-w-xs">
-  <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" action="<%= action %>" method="post">
-    <%= csrf_tag %>
-    <%- if user.id %>
-    <input type="hidden" name="_method" value="patch" />
-    <%- end %>
+<div class="sm:mx-6">
+  <%- action = (user.id ? "/users/" + user.id.to_s : "/users") %>
+  <div class="mx-auto w-full max-w-xs">
+    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" action="<%= action %>" method="post">
+      <%= csrf_tag %>
+      <%- if user.id %>
+      <input type="hidden" name="_method" value="patch" />
+      <%- end %>
       <label class="block text-grey-darker text-sm font-bold mb-2" for="name">
         Nom ou raison Sociale
       </label>
@@ -12,20 +13,23 @@
       <label class="block text-grey-darker text-sm font-bold my-2" for="name">
         Catégorie de personne
       </label>
-      <div class="inline-block relative w-64">
-        <select name="user_type_id" class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline" id="select">
-        <%- user_types.each do |user_type| %>
+      <div class="inline-block w-full">
+        <select name="user_type_id"
+          class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+          id="select">
+          <%- user_types.each do |user_type| %>
           <%- if user.user_type_id == user_type.id %>
-            <option selected value=<%= user_type.id %>><%= user_type.wording %></option>
+          <option selected value=<%= user_type.id %>><%= user_type.wording %></option>
           <%- else %>
-            <option value=<%= user_type.id %>><%= user_type.wording %></option>
+          <option value=<%= user_type.id %>><%= user_type.wording %></option>
           <%- end %>
-        <%- end %>
+          <%- end %>
         </select>
       </div>
-    <div class="flex justify-between">
-      <%= link_to("Retour", "/users/", class: "mt-4 no-underline bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition") -%>
-      <%= submit("Valider", class: "mt-4 pointer bg-green hover:bg-green-darkest text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition") -%>
-    </div>
-  </form>
+      <div class="flex justify-between">
+        <%= link_to("Retour", "/users/", class: "mt-4 no-underline bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition") -%>
+        <%= submit("Valider", class: "mt-4 pointer bg-green hover:bg-green-darkest text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition") -%>
+      </div>
+    </form>
+  </div>
 </div>

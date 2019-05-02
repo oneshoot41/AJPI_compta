@@ -3,7 +3,7 @@ port: 3000
 name: compta
 
 logging:
-  severity: debug
+  #severity: debug
   colorize: true
   filter:
     - password

@@ -6,10 +6,10 @@
   </div>
 </div>
 
-<div class="flex justify-center">
+<div class="xl:flex lg:flex md:flex xl:justify-center lg:justify-center md:justify-center transition">
 
   <%- user_types.each do |ut| %>
-  <ul class="list-reset border border-black px-8 mx-4 py-4 text-center rounded bg-white">
+  <ul class="list-reset border border-black px-8 mx-4 py-4 sm:mt-10 text-center rounded bg-white">
     <h2 class="py-4"><%= ut.wording %></h2>
     <hr class="border border-octoblue">
     <%- ut.users.each do |user| %>

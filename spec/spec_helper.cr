@@ -1,4 +1,4 @@
-ENV["AMBER_ENV"] ||= "test"
+ENV["AMBER_ENV"] ||= "development"
 
 require "spec"
 require "micrate"
