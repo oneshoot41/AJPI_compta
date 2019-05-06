@@ -66,7 +66,7 @@ $(document).ready(function(){
                 invoices.forEach(element => {
                     var date = new Date(element.date);
                     var datef = date.getDate() + '/' + (date.getMonth() + 1) + '/' +  date.getFullYear();
-                    $("#tbody_paid").append("<tr class=\"border-b border-black \"><td class=\"border-l border-black\"><a class=\"no-underline text-octoblue hover:text-turquoise transition\" href=\"/invoices/" + element.id + "\">" + element.name + "</a></td>" + "<td class=\"border-l border-black\">" + datef + "</td>" + "<td class=\"border-l border-black\">" + element.amount + "</td>" + "<td class=\"border-l border-black\">" + (element.amount + element.amount*(element.tva/100)) + "</td>" + "<td class=\"border-l border-black\">" + element.type + "</td></tr>" );
+                    $("#tbody_paid").append("<tr class=\"border-b border-black \"><td><a class=\"no-underline text-octoblue hover:text-turquoise transition\" href=\"/invoices/" + element.id + "\">" + element.name + "</a></td>" + "<td class=\"border-l border-black\">" + datef + "</td>" + "<td class=\"border-l border-black\">" + element.amount + "</td>" + "<td class=\"border-l border-black\">" + (element.amount + element.amount*(element.tva/100)) + "</td>" + "<td class=\"border-l border-black\">" + element.type + "</td></tr>" );
                 });
             }
         });
@@ -78,7 +78,9 @@ $(document).ready(function(){
             success: function(invoices){
                 $("#tbody_unpaid").html("");
                 invoices.forEach(element => {
-                    $("#tbody_paid").append("<tr><td class=\"border-l border-black\"><a class=\"no-underline text-octoblue hover:text-turquoise transition\" href=\"/invoices/" + element.id + "\">" + element.name + "</a></td>" + "<td class=\"border-l border-black\">" + element.date + "</td>" + "<td class=\"border-l border-black\">" + element.amount + "</td>" + "<td class=\"border-l border-black\">" + (element.amount + element.amount*(element.tva/100)) + "</td>" + "<td class=\"border-l border-black\">" + element.type + "</td></tr>" );
+                    var date = new Date(element.date);
+                    var datef = date.getDate() + '/' + (date.getMonth() + 1) + '/' +  date.getFullYear();
+                    $("#tbody_unpaid").append("<tr class=\"border-b border-black \"><td><a class=\"no-underline text-octoblue hover:text-turquoise transition\" href=\"/invoices/" + element.id + "\">" + element.name + "</a></td>" + "<td class=\"border-l border-black\">" + datef + "</td>" + "<td class=\"border-l border-black\">" + element.amount + "</td>" + "<td class=\"border-l border-black\">" + (element.amount + element.amount*(element.tva/100)) + "</td>" + "<td class=\"border-l border-black\">" + element.type + "</td></tr>" );
                 });
             }
         });
